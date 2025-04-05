@@ -1,3 +1,8 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: 'Commissioner', sans-serif;
     margin: 0;
@@ -9,10 +14,11 @@ body {
     height: 100vh;
 }
 
+/* Top Bar Styling */
 #topBar {
     display: flex;
-    align-items: left;
-    justify-content: flex-start; 
+    align-items: flex-start; /* Align logo and title to the left */
+    justify-content: flex-start;
     width: 100%;
     padding: 1rem;
     background-color: #395AA6;
@@ -35,32 +41,49 @@ body {
     margin: 0;
 }
 
-#search {
-    margin-top: 100px;
-    display: flex;
-    gap: 10px;
+/* Input Field Container (Left aligned and vertically centered) */
+#input-container {
+    padding-left: 40px;
+    position: absolute; /* Position the input field in a fixed spot */
+    left: 30px; /* Adjust the left margin for positioning */
+    top: 50%; /* Vertically centered */
+    transform: translateY(-50%); /* Center the container properly */
 }
 
+/* Input Field Styling */
 #in {
     padding: 10px;
     font-size: 1rem;
     border-width: 5px;
     border-radius: 100px;
+    height: 60px;
     width: 600px;
-    background: linear-gradient(90deg, #C2EFB3, #F0849E, #395AA6); /* Apply gradient here */
+    background: linear-gradient(90deg, #C2EFB3, #F0849E, #395AA6); /* Gradient */
     color: black;
     border-color: #395AA6;
     border-style: solid;
     outline: none;
+    line-height: 60px;
 }
 
+/* Placeholder Styling */
 #in::placeholder {
     color: #395AA6;
     font-style: italic;
-    font-style: bold;
-    size: 20px; /* Change this color to your desired placeholder color */
+    font-weight: bold; /* Bold placeholder text */
+    font-size: 25px;
+    align-self: center; /* Adjust font size */
 }
 
+/* Button Container (Centered horizontally at the bottom) */
+#button-container {
+    bottom: 100px; /* Adjust the bottom position */
+    width: 100%; /* Take full width */
+    display: flex;
+    justify-content: center; /* Center the button horizontally */
+}
+
+/* Button Styling */
 button {
     padding: 10px 20px;
     font-size: 1rem;
@@ -72,6 +95,7 @@ button {
     transition: background-color 0.3s;
 }
 
+/* Button Hover Effect */
 button:hover {
     background-color: #17a74a;
 }
