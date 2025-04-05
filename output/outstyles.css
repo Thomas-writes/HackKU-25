@@ -32,7 +32,7 @@ body::before {
 ul.song-list {
     margin-right: 100px;
     list-style: none;
-    padding: 0;
+    padding: 10px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -40,7 +40,15 @@ ul.song-list {
     gap: 20px;
     width: 400px;
     align-self: flex-start;
+    overflow-y: auto;
+    box-sizing: border-box;
+    scrollbar-gutter: stable;
+    scrollbar-width: none;       /* Firefox */
+    -ms-overflow-style: none; 
 }
+ul.song-list::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
 
 li.song-item {
     display: flex;
@@ -134,9 +142,12 @@ button:hover {
     align-items: flex-start;
     margin-right: 200px; /* Push from right edge */
     gap: 20px;
+    height: 800px;
+    max-height: 800px;
 }
 
 #song-list-title {
+    padding-left: 10px;
     margin-top: 220px;
     font-size: 50px;
     font-weight: bold;

@@ -5,11 +5,6 @@ async function initialize() {
   
   await main();
 
-  console.log(titleArray);  // Access the arrays
-  console.log(artistArray);
-  console.log(albumArray);
-  console.log(spotifyURLArray);
-  console.log(imageArray);
   //image source list
   let imageList = imageArray;
   //artist name list
@@ -38,7 +33,10 @@ async function initialize() {
       title.innerHTML = sname;
       artist.innerHTML = aname;
       title.style.color = "#143150"
+      title.style.paddingLeft = "10px"
+      title.style.fontSize="20px"
       artist.style.color = "#C2EFB3"
+      artist.style.paddingLeft = "15px"
       //add the a
       info.appendChild(title); 
       info.appendChild(artist)
