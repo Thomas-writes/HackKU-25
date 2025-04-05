@@ -49,13 +49,15 @@ function generate(aname, img, sname){
     let artist = document.createElement('div');
     //attach all elements to respective classes for styling
     songElement.className = "song-item";
-    image.className = "album-art"; image.alt = sname; image.src = img;
+    image.className = "album-art"; image.src = img;
     info.className = "song-info";
     title.className = "song-title";
     artist.className = "artist-name";
     //adjust the innerHTML for the output
     title.innerHTML = sname;
     artist.innerHTML = aname;
+    title.style.color = "#143150"
+    artist.style.color = "#C2EFB3"
     //add the a
     info.appendChild(title); 
     info.appendChild(artist)
