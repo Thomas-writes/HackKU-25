@@ -27,8 +27,20 @@
     <div id="button-container">
         <div id="square-box"></div>
         <button onClick="getSong()">generate</button>
+        <button onclick ="advSearch()">
+            <img src="adv_search.jpg" id ="adv_search_button">
+        </button>
+    </div>
+
+    <div id = adv_search>
+        <div className = "slide_container">
+            <p>Tempo Range (BPM):<input type="range" min="40" max="180" value="90" class="slider" id="BPM"></p>
+            <p>Duration (Mins):<input type="range" min="1" max="30" value="5" class="slider" id="DUR"></p>
+            <p># of Songs:<input type="range" min="1" max="50" value="10" class="slider" id="NUM"></p>
+        </div>
     </div>
     
     
 </body>
 </html>
+
