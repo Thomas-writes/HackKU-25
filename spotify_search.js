@@ -6,7 +6,7 @@ const fetch = require("node-fetch"); //Lets you use node.js to get access token
 const clientSecret = ""
 const clientID = ""
 const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
-let songTitle = "SaveMe" //put song title here
+let songTitle = "Save Me" //put song title here
 let artist = "Cheif Keef"
 const query = `track:${songTitle} artist:${artist}`;
 
