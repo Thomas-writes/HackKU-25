@@ -3,10 +3,14 @@
 //RAHHHHHH
 
 const fetch = require("node-fetch"); //Lets you use node.js to get access token
-const clientSecret = "28f21ed9b3344f9ea1a047756af9927c"
+const clientSecret = ""
 const clientID = "408141d3d0da4e43a7d4324f99e95d7c"
 const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
-
+let titleArray = [];
+let artistArray = [];
+let albumArray = [];
+let imageArray = [];
+let spotifyURLArray = [];
 async function searchSongs(songDict, accessToken) { // Pass accessToken as a parameter
     for (const [title, artist] of Object.entries(songDict)) {
         const query = `track:${title} artist:${artist}`; // Define query here
@@ -24,11 +28,11 @@ async function searchSongs(songDict, accessToken) { // Pass accessToken as a par
                 console.error(`No track found for "${title}" by "${artist}"`);
                 continue;
             }
-            console.log("Title:", track.name);
-            console.log("Artist:", track.artists[0].name);
-            console.log("Album:", track.album.name);
-            console.log("Spotify URL:", track.external_urls.spotify);
-            console.log("Image URL:", track.album.images[0]?.url || "No image available");
+            titleArray.push(track.name);
+            artistArray.push(track.artists[0].name);
+            albumArray.push(track.album.name);
+            spotifyURLArray.push(track.external_urls.spotify);
+            imageArray.push(track.album.images[0]?.url || "No image available");
         } catch (error) {
             console.error("Error fetching song data:", error);
         }
@@ -54,6 +58,11 @@ fetch('https://accounts.spotify.com/api/token', {
                 "EARFQUAKE": "Tyler, The Creator"
             };
             await searchSongs(songDict, accessToken); // Call searchSongs with accessToken
+            console.log(titleArray)
+            console.log(artistArray)
+            console.log(albumArray)
+            console.log(spotifyURLArray)
+            console.log(imageArray)
         } catch (error) {
             console.error('Error:', error);
         }

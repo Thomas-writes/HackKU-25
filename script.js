@@ -3,7 +3,7 @@
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
 //create gemini AI
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBp9yVHCUpmaJVQF6ksR6fgzqS0uogfn7U" });
+const ai = new GoogleGenAI({ apiKey: "AIzaSyBtBJHsx8NDaGK3mqsWKq0m-Nhx14_Wtx0" });
 
 
 //Gets song inside input box and sends to gemini
