@@ -12,12 +12,8 @@ async function getSong()
   let response;
   const song_name = document.getElementById("in").value;
   document.getElementById("in").value = "";
-<<<<<<< Updated upstream
-  const response = await ai.models.generateContent(
-=======
   const adv_search = document.getElementById("adv_search");
   if(adv_search.style.display == "none") 
->>>>>>> Stashed changes
   {
     response = await ai.models.generateContent(
     {
