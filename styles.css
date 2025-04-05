@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body 
 {
     background-color: rgba(34, 27, 27, 0.86);
@@ -34,3 +35,67 @@ body
     left: 42%;
     top: 100%;
 }
+=======
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(120deg, #1db954, #191414);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+#topBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1rem;
+    background-color: #121212;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#logo {
+    height: 50px;
+    margin-right: 20px;
+}
+
+#t {
+    font-size: 2.5rem;
+    color: #1db954;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+#search {
+    margin-top: 100px;
+    display: flex;
+    gap: 10px;
+}
+
+#in {
+    padding: 10px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    outline: none;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #1db954;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #17a74a;
+}
+>>>>>>> 92c2be367119cf1da563bb6b717e4c84d7bb68a4
