@@ -132,12 +132,12 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 220px;
     margin-right: 200px; /* Push from right edge */
     gap: 20px;
 }
 
 #song-list-title {
+    margin-top: 220px;
     font-size: 50px;
     font-weight: bold;
     background: #395AA6;
