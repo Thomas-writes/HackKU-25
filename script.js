@@ -8,6 +8,7 @@ const ai = new GoogleGenAI({ apiKey: "API_KEY" });
 async function getSong() 
 {
   const song_name = document.getElementById("in").value;
+  document.getElementById("in").value = "";
   const response = await ai.models.generateContent(
   {
     model: "gemini-2.0-flash",
