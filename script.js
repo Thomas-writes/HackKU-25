@@ -3,7 +3,7 @@
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
 //create gemini AI
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBtBJHsx8NDaGK3mqsWKq0m-Nhx14_Wtx0" });
+const ai = new GoogleGenAI({ apiKey: "API-KEY" });
 
 
 //Gets song inside input box and sends to gemini
@@ -32,21 +32,15 @@ async function getSong()
       {
         model: "gemini-2.0-flash",
         contents: "List " + num_songs +" songs similar to " + song_name + " that are within " + BPM + " BPM and are around " + duration + 
-        " minutes long, with no description."
+        " minutes long, with no description. Please do not use any bold, italics, or mark ups and separate the song names from the artist by a -." +
+        " Please do not say anything else but the song names and artist."
       });
   }
   let list = response.text;
+  console.log(response.text);
+  list = list.split("\n");
   console.log(list);
-  /*
-  response = await ai.models.generateContent(
-    {
-      model: "gemini-2.0-flash",
-      contents: "Remove all songs in the list by the author of the first song please and replace them with other songs. Here is the list: " + list
-    }
-  )
-  console.log(response.text);*/
-  list = list.split("\n").slice(2, 2+(document.getElementById("NUM").value));
-  console.log(list);
+  sendToSpotify(list);
 }
 
 function advSearch()
@@ -58,6 +52,19 @@ function advSearch()
   else{
     ele.style.display = "none";
   }
+}
+
+function sendToSpotify(list)
+{
+  //Converts data obtained from gemini into a dictionary to send to the sptoify API
+  console.log(list);
+  let dict = {};
+  for(let iterate = 0; iterate < list.length-1; iterate++)
+  {
+    dict[list[iterate].slice(0, list[iterate].indexOf("-"))] = list[iterate].slice(list[iterate].indexOf("-")+2);
+  }
+  console.log(dict);
+  
 }
 
 document.getSong = getSong;
