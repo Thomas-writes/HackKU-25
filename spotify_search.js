@@ -11,6 +11,7 @@ let artistArray = [];
 let albumArray = [];
 let imageArray = [];
 let spotifyURLArray = [];
+let idArray = [];
 async function searchSongs(songDict, accessToken) { // Pass accessToken as a parameter
     for (const [title, artist] of Object.entries(songDict)) {
         const query = `track:${title} artist:${artist}`; // Define query here
@@ -33,6 +34,7 @@ async function searchSongs(songDict, accessToken) { // Pass accessToken as a par
             albumArray.push(track.album.name);
             spotifyURLArray.push(track.external_urls.spotify);
             imageArray.push(track.album.images[0]?.url || "No image available");
+            //idArray.push(track.)
         } catch (error) {
             console.error("Error fetching song data:", error);
         }
