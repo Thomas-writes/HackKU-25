@@ -6,9 +6,28 @@ const fetch = require("node-fetch"); //Lets you use node.js to get access token
 const clientSecret = ""
 const clientID = ""
 const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
-let songTitle = "Save Me" //put song title here
-let artist = "Cheif Keef"
-const query = `track:${songTitle} artist:${artist}`;
+
+async function searchSongs(songDict) {
+    for(const [title, artist] of Object.entries(songDict)){
+        const query = `track:${title} artist:${artist}`;
+        const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`;
+        try {
+            const response = await fetch(url, {
+                headers: {
+                    'Authorization': `Bearer ${accessToken}`
+                }
+            });
+            // Handle the response here if needed
+        } catch (error) {
+            console.error("Error fetching song data:", error);
+        }
+    }
+    
+}
+//let songTitle = "Save Me" //put song title here
+//let artist = "Cheif Keef"
+//const query = `track:${songTitle} artist:${artist}`;
+
 
 fetch('https://accounts.spotify.com/api/token', {
     method: "POST",
