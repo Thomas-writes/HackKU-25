@@ -6,7 +6,7 @@ export let spotifyURLArray = [];
 export let imageArray = [];
 
 export function main() {
-    const clientSecret = "75fa5dd89b0d488890eafceb22916157";
+    const clientSecret = "";
     const clientID = "408141d3d0da4e43a7d4324f99e95d7c";
     const token = btoa(`${clientID}:${clientSecret}`);
 
