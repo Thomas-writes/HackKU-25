@@ -3,7 +3,7 @@
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
 //create gemini AI
-const ai = new GoogleGenAI({ apiKey: "API-KEY" });
+const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" });
 
 
 //Gets song inside input box and sends to gemini
@@ -38,8 +38,7 @@ async function getSong()
   }
   let list = response.text;
   console.log(response.text);
-  list = list.split("\n");
-  console.log(list);
+  list = list.split("\n").slice(0,-1);
   sendToSpotify(list);
 }
 
@@ -59,7 +58,7 @@ function sendToSpotify(list)
   //Converts data obtained from gemini into a dictionary to send to the sptoify API
   console.log(list);
   let dict = {};
-  for(let iterate = 0; iterate < list.length-1; iterate++)
+  for(let iterate = 0; iterate < list.length; iterate++)
   {
     dict[list[iterate].slice(0, list[iterate].indexOf("-"))] = list[iterate].slice(list[iterate].indexOf("-")+2);
   }
@@ -67,5 +66,5 @@ function sendToSpotify(list)
   
 }
 
-document.getSong = getSong;
 document.advSearch = advSearch;
+document.getSong = getSong;
