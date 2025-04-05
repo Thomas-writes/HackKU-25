@@ -7,14 +7,15 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyBAJI1McWcZ7i-ZSKk4BLhI0vFD1Yqy5O8" }
 async function getSong() 
 {
   const song_name = document.getElementById("in").value;
+  document.getElementById("in").value = "";
   const response = await ai.models.generateContent(
   {
     model: "gemini-2.0-flash",
     contents: "List 10 songs similar to " + song_name + " with no description"
   });
   let list = response.text;
-  list = list.split("\n").slice(2, 11);
-  
+  list = list.split("\n").slice(2, 12);
+  console.log(list);
 }
 
 document.getSong = getSong;
