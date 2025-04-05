@@ -6,9 +6,9 @@ export let spotifyURLArray = [];
 export let imageArray = [];
 
 export function main() {
-    const clientSecret = "";
+    const clientSecret = ""; // Insert your client secret here
     const clientID = "408141d3d0da4e43a7d4324f99e95d7c";
-    const token = btoa(`${clientID}:${clientSecret}`);
+    const token = btoa(`${clientID}:${clientSecret}`); // ✅ Replaced Buffer with btoa()
 
     async function searchSongs(songDict, accessToken) {
         for (const [title, artist] of Object.entries(songDict)) {
@@ -37,6 +37,7 @@ export function main() {
         }
     }
 
+    // Fetch access token and begin search
     fetch('https://accounts.spotify.com/api/token', {
         method: "POST",
         headers: {
@@ -49,22 +50,21 @@ export function main() {
     .then(data => {
         const accessToken = data.access_token;
         console.log("Access token:", accessToken);
-        (async () => {
-            try {
-                const songDict = {
-                    "Save Me": "Chief Keef",
-                    "EARFQUAKE": "Tyler, The Creator"
-                };
-                await searchSongs(songDict, accessToken);
-                console.log(titleArray);
-                console.log(artistArray);
-                console.log(albumArray);
-                console.log(spotifyURLArray);
-                console.log(imageArray);
-            } catch (error) {
-                console.error('Error:', error);
-            }
-        })();
+
+        const songDict = {
+            "Save Me": "Chief Keef",
+            "EARFQUAKE": "Tyler, The Creator"
+        };
+
+        return searchSongs(songDict, accessToken);
     })
-    .catch(error => console.error('Error', error));
+    .then(() => {
+        // Log arrays after async work is complete
+        console.log(titleArray);
+        console.log(artistArray);
+        console.log(albumArray);
+        console.log(spotifyURLArray);
+        console.log(imageArray);
+    })
+    .catch(error => console.error('Error:', error));
 }
