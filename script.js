@@ -18,7 +18,8 @@ async function getSong()
     response = await ai.models.generateContent(
     {
       model: "gemini-2.0-flash",
-      contents: "List 10 songs similar to " + song_name + " with no description"
+      contents: "List 10 songs similar to " + song_name + " with no description. Please do not use any bold, italics, or mark ups and separate the song names from the artist by a -." +
+        " Please do not say anything else but the song names and artist."
     });
   }
   else
