@@ -134,6 +134,7 @@ button {
     transition: filter 0.2s ease-in-out, box-shadow 0.4s ease-in-out;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
     padding-bottom: 5px;
+    cursor: pointer;
 }
 
 /* Button Hover Effect */
