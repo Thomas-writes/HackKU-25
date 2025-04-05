@@ -3,31 +3,37 @@
 //RAHHHHHH
 
 const fetch = require("node-fetch"); //Lets you use node.js to get access token
-const clientSecret = ""
-const clientID = ""
+const clientSecret = "28f21ed9b3344f9ea1a047756af9927c"
+const clientID = "408141d3d0da4e43a7d4324f99e95d7c"
 const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
 
-async function searchSongs(songDict) {
-    for(const [title, artist] of Object.entries(songDict)){
-        const query = `track:${title} artist:${artist}`;
+async function searchSongs(songDict, accessToken) { // Pass accessToken as a parameter
+    for (const [title, artist] of Object.entries(songDict)) {
+        const query = `track:${title} artist:${artist}`; // Define query here
         const url = `https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`;
         try {
             const response = await fetch(url, {
                 headers: {
-                    'Authorization': `Bearer ${accessToken}`
+                    'Authorization': `Bearer ${accessToken}` // Use accessToken here
                 }
             });
-            // Handle the response here if needed
+            const data = await response.json();
+            //console.log("Search API Response:", JSON.stringify(data, null, 2));
+            const track = data.tracks?.items?.[0];
+            if (!track) {
+                console.error(`No track found for "${title}" by "${artist}"`);
+                continue;
+            }
+            console.log("Title:", track.name);
+            console.log("Artist:", track.artists[0].name);
+            console.log("Album:", track.album.name);
+            console.log("Spotify URL:", track.external_urls.spotify);
+            console.log("Image URL:", track.album.images[0]?.url || "No image available");
         } catch (error) {
             console.error("Error fetching song data:", error);
         }
     }
-    
 }
-//let songTitle = "Save Me" //put song title here
-//let artist = "Cheif Keef"
-//const query = `track:${songTitle} artist:${artist}`;
-
 
 fetch('https://accounts.spotify.com/api/token', {
     method: "POST",
@@ -41,25 +47,17 @@ fetch('https://accounts.spotify.com/api/token', {
 .then(data => {
     const accessToken = data.access_token;
     console.log("Access token:", accessToken);
-    fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track&limit=1`, {
-        headers: {
-            'Authorization': `Bearer ${accessToken}`
+    (async () => {
+        try {
+            const songDict = {
+                "Save Me": "Chief Keef",
+                "EARFQUAKE": "Tyler, The Creator"
+            };
+            await searchSongs(songDict, accessToken); // Call searchSongs with accessToken
+        } catch (error) {
+            console.error('Error:', error);
         }
-        
-    })
-        .then(response => response.json())
-        .then(data => {
-            console.log("Search API Response:", JSON.stringify(data, null, 2));
-            const track = data.tracks?.items?.[0];
-            if (!track) {
-                console.error("No track found!");
-                return;
-            }
-            console.log("Title", track.name);
-            console.log("Artist", track.artists[0].name);
-            console.log("Album:", track.album.name);
-            console.log('Preview URL:', track.preview_url);
-        })
-        .catch(error => console.error('Error', error));
-});
+    })();
+})
+.catch(error => console.error('Error', error));
 
