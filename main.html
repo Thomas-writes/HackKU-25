@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <Title>
-            HackKU 2025
-        </Title>
-        <link rel="stylesheet" href="styles.css">
-        <script src= "script.js" type="module"></script>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HackKU 2025</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" type="module"></script>
+</head>
+<body>
 
-        <div id = "topBar">
-            <img src = "/temp.jpg" alt = "logo" id = "logo"> 
-            <h1 id = "t">
-                spot-a-song
-            </h1>
-        </div>
-            <input placeholder="Enter URL here..." type ="text" id ="in">
-            <button onClick = "getSong()">Generate</button>
-    </body>
+    <div id="topBar">
+        <img src="/temp.jpg" alt="logo" id="logo">
+        <h1 id="t">spot-a-song</h1>
+    </div>
+    
+    <!-- Left-aligned input field -->
+    <div id="input-container">
+        <input placeholder="Enter URL here..." type="text" id="in">
+    </div>
+    
+    <!-- Button at the bottom (centered horizontally) -->
+    <div id="button-container">
+        <button onClick="getSong()">Generate</button>
+    </div>
+    
+</body>
 </html>
