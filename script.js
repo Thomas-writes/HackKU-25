@@ -1,13 +1,13 @@
+
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
 //create gemini AI
-const ai = new GoogleGenAI({ apiKey: "AIzaSyBAJI1McWcZ7i-ZSKk4BLhI0vFD1Yqy5O8" });
+const ai = new GoogleGenAI({ apiKey: "API_KEY" });
 
 //Gets song inside input box and sends to gemini
 async function getSong() 
 {
   const song_name = document.getElementById("in").value;
-  document.getElementById("in").value = "";
   const response = await ai.models.generateContent(
   {
     model: "gemini-2.0-flash",
