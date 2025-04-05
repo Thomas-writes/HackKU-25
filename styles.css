@@ -44,7 +44,7 @@ body {
 #in {
     padding: 10px;
     font-size: 1rem;
-    border-width: 10px;
+    border-width: 5px;
     border-radius: 100px;
     width: 600px;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #395AA6); /* Apply gradient here */
@@ -75,4 +75,3 @@ button {
 button:hover {
     background-color: #17a74a;
 }
->>>>>>> 92c2be367119cf1da563bb6b717e4c84d7bb68a4
