@@ -3,36 +3,42 @@
 //RAHHHHHH
 
 const fetch = require("node-fetch"); //Lets you use node.js to get access token
-const clientSecret = "PUT CLIENT SECRET HERE"
-const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64")
+const clientSecret = ""
+const clientID = ""
+const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
+let songTitle = "SaveMe" //put song title here
 
 fetch('https://accounts.spotify.com/api/token', {
     method: "POST",
     headers:{
         'Authorization': `Basic ${token}`,
-        'Content-Type': "application/x-www-form-urlencodded"
+        'Content-Type': "application/x-www-form-urlencoded"
     },
     body: 'grant_type=client_credentials'
 })
 .then(res => res.json())
 .then(data => {
-    console.log('Access token:', data.access_token);
+    const accessToken = data.access_token;
+    console.log("Access token:", accessToken);
+    fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(songTitle)}&type=track&limit=1`, {
+        headers: {
+            'Authorization': `Bearer ${accessToken}`
+        }
+        
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Search API Response:", JSON.stringify(data, null, 2));
+            const track = data.tracks?.items?.[0];
+            if (!track) {
+                console.error("No track found!");
+                return;
+            }
+            console.log("Title", track.name);
+            console.log("Artist", track.artists[0].name);
+            console.log("Album:", track.album.name);
+            console.log('Preview URL:', track.preview_url);
+        })
+        .catch(error => console.error('Error', error));
 });
 
-const accessToken = "YOUR ACCESS_TOKEN"
-let songTitle = "SaveMe" //put song title here
-fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(songTitle)}&type=track&limit=1`, {
-    headers: {
-        'Authorization': `Bearer ${accessToken}`
-    }
-    
-})
-    .then(response => response.json())
-    .then(data => {
-        const track = data.tracks.items[0];
-        console.log("Title", track.name);
-        console.log("Artist", track.artists[0].name);
-        console.log("Album:", track.album.name);
-        console.log('Preview URL:', track.preview_url);
-    })
-    .catch(error => console.error('Error', error));
