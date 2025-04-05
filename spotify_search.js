@@ -9,7 +9,7 @@ const token = Buffer.from(`${clientID}:${clientSecret}`).toString("base64");
 let titleArray = [];
 let artistArray = [];
 let albumArray = [];
-let immageArray = [];
+let imageArray = [];
 let spotifyURLArray = [];
 async function searchSongs(songDict, accessToken) { // Pass accessToken as a parameter
     for (const [title, artist] of Object.entries(songDict)) {
@@ -32,7 +32,7 @@ async function searchSongs(songDict, accessToken) { // Pass accessToken as a par
             artistArray.push(track.artists[0].name);
             albumArray.push(track.album.name);
             spotifyURLArray.push(track.external_urls.spotify);
-            immageArray.push(track.album.images[0]?.url || "No image available");
+            imageArray.push(track.album.images[0]?.url || "No image available");
         } catch (error) {
             console.error("Error fetching song data:", error);
         }
@@ -62,7 +62,7 @@ fetch('https://accounts.spotify.com/api/token', {
             console.log(artistArray)
             console.log(albumArray)
             console.log(spotifyURLArray)
-            console.log(immageArray)
+            console.log(imageArray)
         } catch (error) {
             console.error('Error:', error);
         }
