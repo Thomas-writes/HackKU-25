@@ -167,19 +167,26 @@ export function main() {
 
       const newWindow = window.open('/loading.html', '_blank');
 
-      const interval = setInterval(() => {
-      if (newWindow && newWindow.document && newWindow.document.readyState === 'complete') {
-         
+      setTimeout(() => {
+        // Redirect to output.html after exactly 3 seconds
         newWindow.location.href = '/output/output.html';
 
-          setTimeout(() => {
-            newWindow.postMessage(songData, '*');
-          }, 1000);
-
-          clearInterval(interval);
-        }
-      }, 500);
-        }
+        // Wait until output.html is fully loaded before sending the message
+        const interval = setInterval(() => {
+          try {
+            if (
+              newWindow &&
+              newWindow.location.href.includes('output.html') &&
+              newWindow.document.readyState === 'complete'
+            ) {
+              newWindow.postMessage(songData, '*');
+              clearInterval(interval);
+            }
+          } catch (err) {
+            // Ignore errors during navigation
+          }
+        }, 100);
+      }, 3000);
 
   // Fetch access token and begin search
   return fetch('https://accounts.spotify.com/api/token', {
@@ -204,5 +211,5 @@ export function main() {
       console.error('Error fetching access token:', error);
   });
 };
-
+}
 document.toggleDropdown = toggleDropdown;
