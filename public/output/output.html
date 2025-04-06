@@ -13,9 +13,9 @@
 
   <div id="button-container">
     <div class="square-box">
-      <img class="square-box"src="" alt="playlist cover" id="playlist">
+      <img class="square-box" src="" alt="playlist cover" id="playlist">
     </div>
-    <button id="generation">generate again</button>
+    <button onclick="regen()" id="generation">generate again</button>
     <button>send to spotify</button>
   </div>
   <div id="song-section">
@@ -25,20 +25,18 @@
     <ul class="song-list" id="main">
     </ul>
     <script>
+      function regen() {
+        window.close()
+      }
       window.addEventListener('message', function(event) {
-        console.log("a")
+        console.log("Message received:", event.data);  // Log the received data
         const data = event.data;
         
-        // Destructure the arrays from the data object
         const { titleArray, artistArray, albumArray, spotifyURLArray, imageArray } = data;
-    
+        
         let playlist_cover = document.getElementById("playlist");
         let mainList = document.getElementById('main');
         
-
-        mainList.innerHTML = ''; 
-        
-    
         function generate(aname, img, sname) {
           let songElement = document.createElement('li');
           let image = document.createElement('img');
@@ -69,15 +67,17 @@
         }
         
         playlist_cover.src = imageArray[0];
-        
-    
         // Generate list of songs
         for (let i = 0; i < titleArray.length; i++) {
           generate(artistArray[i], imageArray[i], titleArray[i]);
         }
       });
+      let mainList = document.getElementById('main');
+      mainList.innerHTML = ''; 
+      for (let i = 0; i < titleArray.length; i++) {
+        generate(artistArray[i], imageArray[i], titleArray[i]);
+      }
     </script>
-    
   </div>
 </body>
 </html>

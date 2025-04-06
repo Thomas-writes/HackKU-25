@@ -1,0 +1,111 @@
+@keyframes animateBody
+{
+
+
+}
+
+body {
+    font-family: 'Commissioner', sans-serif;
+    margin: 0;
+    background: linear-gradient(to bottom, #96D2FF, #C2EFB3);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+}
+
+#topBar {
+    display: flex;
+    align-items: flex-start; /* Align logo and title to the left */
+    justify-content: flex-start;
+    width: 100%;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background-color: #395AA6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+#logo {
+    height: 50px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+#t {
+    font-size: 2.5rem;
+    background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
+    -webkit-background-clip: text; /* For Chrome, Safari, and Edge */
+    background-clip: text; /* For Firefox */
+    color: transparent; /* Make the text color transparent to show the gradient */
+    letter-spacing: 2px;
+    margin: 0;
+}
+/* body part 1*/
+#loading_bar_background
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+
+    position: absolute;
+
+    width: 713px;
+    height: 70px;
+    left: 24rem;
+    top: 20rem;
+
+    background: #4268BD;
+    border-radius: 100px;
+}
+
+
+#loading_bar
+{
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
+    border-radius: 100px;
+}
+
+/*
+flex: none;
+order: 0;
+flex-grow: 0;*/
+
+/* body part 2*/
+#loading_bar_background2
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px;
+    gap: 10px;
+
+    position: absolute;
+    width: 713px;
+    height: 70px;
+    left: 20px;
+    top: 134px;
+
+    background: #4268BD;
+    border-radius: 100px;
+}
+
+
+/* loading bar*/
+#loading_bar2
+{
+    width: 703px;
+    height: 60px;
+    background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
+    border-radius: 100px;
+}
+
+/*
+flex: none;
+order: 0;
+flex-grow: 0;
+*/
