@@ -165,18 +165,21 @@ export function main() {
           spotifyURIArray
       };
 
-      // Open the new window (it can be a new tab/window)
-      const newWindow = window.open('/output/output.html', '_blank'); // Open in a new tab/window
+      const newWindow = window.open('/loading.html', '_blank');
 
-      // Wait for the new window to be ready to receive data
       const interval = setInterval(() => {
-          if (newWindow && newWindow.document && newWindow.document.readyState === 'complete') {
-              // Send the data to the new window
-              newWindow.postMessage(songData, '*');
-              clearInterval(interval); // Stop checking once the message is sent
-          }
-      }, 100); // Check every 100ms
-  }
+      if (newWindow && newWindow.document && newWindow.document.readyState === 'complete') {
+         
+        newWindow.location.href = '/output/output.html';
+
+          setTimeout(() => {
+            newWindow.postMessage(songData, '*');
+          }, 500);
+
+          clearInterval(interval);
+        }
+      }, 100);
+        }
 
   // Fetch access token and begin search
   return fetch('https://accounts.spotify.com/api/token', {
