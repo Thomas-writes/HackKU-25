@@ -1,4 +1,3 @@
-
 let dict = {}
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
@@ -49,14 +48,37 @@ async function getSong()
   sendToSpotify(list);
 }
 
-function advSearch()
-{
-  const ele = document.getElementById("adv_search")
-  if(ele.style.display == "none"){
-   ele.style.display = "block";
-  }
-  else{
-    ele.style.display = "none";
+function advSearch() {
+  const ele = document.getElementById("adv_search");
+  const sliders = ele.querySelectorAll(".slider"); // Select all slider elements inside adv_search
+
+  if (ele.style.display == "none" || ele.style.display == "") {
+    ele.style.display = "block";
+    ele.style.height = "0px";
+    ele.style.opacity = "0";
+    sliders.forEach(slider => (slider.style.opacity = "0")); // Hide sliders initially
+
+    setTimeout(() => {
+      ele.style.transition = "height 0.5s ease, opacity 0.5s ease"; // Add height and opacity transitions
+      ele.style.height = "32vh"; // Target height (adjust as needed)
+      ele.style.opacity = "1"; // Fade in the container
+
+      setTimeout(() => {
+        sliders.forEach(slider => {
+          slider.style.transition = "opacity 1.25s ease"; // Add opacity transition for sliders
+          slider.style.opacity = "1"; // Fade in sliders
+        });
+      }, 200); // Delay the slider appearance slightly more
+    }, 10); // Small delay to ensure transition is applied
+  } else {
+    ele.style.transition = "height 0.5s ease, opacity 0.5s ease"; // Add height and opacity transitions
+    ele.style.height = "0px"; // Collapse to height 0
+    ele.style.opacity = "0"; // Fade out the container
+    sliders.forEach(slider => (slider.style.opacity = "0")); // Fade out sliders
+
+    setTimeout(() => {
+      ele.style.display = "none"; // Hide after animation
+    }, 900); // Match the duration of the transition
   }
 }
 
