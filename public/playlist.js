@@ -46,20 +46,25 @@ async function generateCodeChallenge(codeVerifier) {
 }
 
 async function handleRedirectAndCreate() {
-  const cleanUrl = window.location.origin + window.location.pathname;
-  window.history.replaceState({}, document.title, cleanUrl);
-  const code = new URLSearchParams(window.location.search).get("code");
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get("code");
   const verifier = localStorage.getItem("code_verifier");
 
-console.log("Code from URL:", code);
-console.log("Verifier from storage:", verifier);
-console.log("Code used already?", sessionStorage.getItem("code_used"));
-// Prevent double-use of the code
-if (!code || !verifier || sessionStorage.getItem("code_used")) {
-  console.warn("Skipping token exchange: code already used or missing");
-  return;
-}
-sessionStorage.setItem("code_used", "true");
+  console.log("Code from URL:", code);
+  console.log("Verifier from storage:", verifier);
+  console.log("Code used already?", sessionStorage.getItem("code_used"));
+
+  // Prevent double-use of the code
+  if (!code || !verifier || sessionStorage.getItem("code_used")) {
+    console.warn("Skipping token exchange: code already used or missing");
+    return;
+  }
+
+  sessionStorage.setItem("code_used", "true");
+
+  // ✅ MOVE THIS LINE HERE — after reading the code
+  const cleanUrl = window.location.origin + window.location.pathname;
+  window.history.replaceState({}, document.title, cleanUrl);
 
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -83,8 +88,12 @@ sessionStorage.setItem("code_used", "true");
   localStorage.setItem("access_token", tokenData.access_token);
   localStorage.setItem("expires_at", Date.now() + tokenData.expires_in * 1000);
 
+  // Optionally log all tokens
+  console.log("Token data:", tokenData);
+
   createPlaylist();
 }
+
 
 async function getValidAccessToken() {
   const token = localStorage.getItem("access_token");
