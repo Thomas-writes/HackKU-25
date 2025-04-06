@@ -140,7 +140,13 @@ async function createPlaylist() {
       code_challenge_method: "S256",
       code_challenge: challenge,
       scope: scopes.join(" "),
+      prompt: "consent" // force it to re-ask every time and return refresh_token
     });
+
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
+    localStorage.removeItem("expires_at");
+    localStorage.removeItem("code_verifier");
 
     window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
     return;
