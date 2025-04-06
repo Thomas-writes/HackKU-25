@@ -137,7 +137,12 @@ async function createPlaylist() {
   }
 
   const playlist = await playlistRes.json();
-  const trackUris = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
+  const trackUris = (JSON.parse(localStorage.getItem("spotifyURIArray") || "[]"))
+  .filter(uri => typeof uri === "string" && uri.startsWith("spotify:track:"));
+
+  if (!trackUris.length) {
+    return alert("No valid tracks found. Generate a playlist first.");
+  }
 
   if (!trackUris.length) {
     return alert("No tracks found. Generate a playlist first.");
