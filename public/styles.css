@@ -35,9 +35,9 @@ body {
 #t {
     font-size: 2.5rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
-    -webkit-background-clip: text; /* For Chrome, Safari, and Edge */
-    background-clip: text; /* For Firefox */
-    color: transparent; /* Make the text color transparent to show the gradient */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent; 
     letter-spacing: 2px;
     margin: 0;
 }
@@ -47,11 +47,11 @@ body {
     margin-top: 100px;
     max-width: 600px;
     padding-left: 40px;
-    position: absolute; /* Position the input field in a fixed spot */
-    left: 120px; /* Adjust the left margin for positioning */
-    top: 40%; /* Vertically centered */
-    transform: translateY(-50%); /* Center the container properly */
-    text-align: left; /* Ensure text aligns properly */
+    position: absolute; 
+    left: 120px;
+    top: 40%; 
+    transform: translateY(-50%);
+    text-align: left; 
     overflow-wrap: break-word;
     margin-block-end: 600px;
 }
@@ -60,13 +60,13 @@ body {
     color: black;
     font-size: 20px;
     font-weight: normal;
-    width: 100%; /* Ensure it takes full width of the parent container */
-    max-width: 600px; /* Limit the maximum width to 600px */
-    word-wrap: break-word; /* Ensure long words break properly */
-    overflow-wrap: break-word; /* Ensure text breaks inside words when needed */
-    white-space: normal; /* Allow text to wrap normally */
-    line-height: 1.5; /* Adjust line height for readability */
-    margin-top: 10px; /* Space between input and dtext */
+    width: 100%;
+    max-width: 600px; 
+    word-wrap: break-word; 
+    overflow-wrap: break-word; 
+    white-space: normal; 
+    line-height: 1.5; 
+    margin-top: 10px; 
 }
 
 /* Input Field Styling */
@@ -89,13 +89,12 @@ body {
     margin-bottom: 20px;
 }
 
-/* Placeholder Styling */
 #in::placeholder {
     color: #395AA6;
     font-style: italic;
-    font-weight: semi-bold; /* Bold placeholder text */
+    font-weight: semi-bold; 
     font-size: 34px;
-    align-self: center; /* Adjust font size */
+    align-self: center; 
 }
 
 #advanced
@@ -139,13 +138,13 @@ body {
 /* Button Styling */
 #button-container {
     display: flex;
-    flex-direction: column;       /* Stack vertically */
+    flex-direction: column;       
     align-items: center;    
     position: absolute;
-    right: 40px;                  /* Distance from the right edge */
+    right: 40px;                  
     top: 50%;
-    transform: translateY(-50%);  /* Center vertically */
-    gap: 15px;                    /* Space between square and button */
+    transform: translateY(-50%);  
+    gap: 15px;                   
     padding-right: 150px;
 }
 
@@ -196,14 +195,14 @@ body {
 .slider
 {
     margin: 12px;
-    -webkit-appearance: none;  /* Override default CSS styles */
+    -webkit-appearance: none;  
     appearance: none;
-    width: 75%; /* Full-width */
-    height: 25px; /* Specified height */
-    background: white; /* Grey background */
-    outline: none; /* Remove outline */
-    opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-    -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+    width: 75%; 
+    height: 25px; 
+    background: white; 
+    outline: none; 
+    opacity: 0.7; 
+    -webkit-transition: .2s; 
     transition: opacity .2s;
     scroll-snap-type: x mandatory;
     border-radius: 10px;
@@ -213,12 +212,12 @@ body {
 }
 
 .slider::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Override default look */
+    -webkit-appearance: none; 
     appearance: none;
-    width: 42px; /* Set a specific slider handle width */
-    height: 32px; /* Slider handle height */
+    width: 42px; 
+    height: 32px;
     background: linear-gradient(90deg, #96D2FF, #F0849E);
-    cursor: pointer; /* Cursor on hover */
+    cursor: pointer; 
     border-radius: 20px;
     border-style: solid;
     border-width: 2.4px;
@@ -297,8 +296,7 @@ button {
     cursor: pointer;
 }
 
-/* Button Hover Effect */
 button:hover {
-    filter: brightness(0.7); /* Darken the button */
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9); /* Darker shadow */
+    filter: brightness(0.7); 
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.9); 
 }
