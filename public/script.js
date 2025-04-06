@@ -174,7 +174,7 @@ export function main() {
 
           setTimeout(() => {
             newWindow.postMessage(songData, '*');
-          }, 500);
+          }, 1000);
 
           clearInterval(interval);
         }
