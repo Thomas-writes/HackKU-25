@@ -30,7 +30,7 @@ async function getSong()
     response = await ai.models.generateContent(
       {
         model: "gemini-2.0-flash",
-        contents: "List " + num_songs +" song(s) similar to " + song_name + " that are within " + BPM + " BPM and are around " + duration + 
+        contents: "List " + num_songs +" song( ) similar to " + song_name + " that are within " + BPM + " BPM and are around " + duration + 
         " minutes long, with no description. Please do not use any bold, italics, or mark ups and separate the song names from the artist by a -." +
         " Please do not say anything else but the song names and artist."
       });
