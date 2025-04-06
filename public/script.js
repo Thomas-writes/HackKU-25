@@ -148,7 +148,7 @@ export function main(loadingWindow) {
         console.error("Error fetching song data:", error); //error handeling
       }
     }
-
+    localStorage.setItem("spotifyURIArray", JSON.stringify(songData.spotifyURIArray));
     setTimeout(() => {
       loadingWindow.location.href = './output/output.html';
 

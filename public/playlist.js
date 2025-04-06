@@ -110,7 +110,7 @@ async function getValidAccessToken() {
   // Token expired or missing — restart auth
   const verifier = generateRandomString(128);
   const challenge = await generateCodeChallenge(verifier);
-  localStorage.setItem("code_verifier", verifier); // ✅ crucial line
+  localStorage.setItem("code_verifier", verifier);
 
   const params = new URLSearchParams({
     client_id: clientId,
@@ -169,7 +169,6 @@ async function createPlaylist(trackUris = null) {
 
   const playlist = await playlistRes.json();
 
-  // ✅ Use passed-in URIs if available, else fallback to localStorage
   if (!trackUris) {
     trackUris = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
   }
