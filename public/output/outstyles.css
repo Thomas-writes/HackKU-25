@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wdth,wght@100..150,600&display=swap');
 * {
     letter-spacing: -1px;
     margin: 0;
@@ -87,7 +88,8 @@ li.song-item:hover {
 }
 
 #t {
-    font-style: ;
+    font-family: 'Gabarito', sans-serif;
+    font-weight: 600; 
     font-size: 2.5rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
     -webkit-background-clip: text;
@@ -150,7 +152,7 @@ button:hover {
 #song-list-title {
     padding-left: 10px;
     margin-top: 220px;
-    font-size: 50px;
+    font-size: 200px;
     font-weight: bold;
     background: #395AA6;
     -webkit-background-clip: text;
