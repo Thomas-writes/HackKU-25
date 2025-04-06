@@ -51,6 +51,7 @@ const loadingWindow = window.open('/loading.html', '_blank'); // 🚀 Opens inst
 function advSearch() 
 {
   const ele = document.getElementById("adv_search");
+  const drop = document.getElementById("dropdown");
   const sliders = ele.querySelectorAll(".slider"); // Select all slider elements inside adv_search
 
   if (ele.style.display == "none" || ele.style.display == "") {
