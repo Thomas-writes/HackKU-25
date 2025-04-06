@@ -88,9 +88,9 @@ function advSearch()
 function sendToSpotify(list, loadingWindow) {
   dict = {};
 
-  for (let line of list) 
+  for (let entry of list) 
   {
-    const splitIndex = line.indexOf("-");
+    const splitIndex = entry.indexOf("-");
     if (splitIndex === -1) continue;
     const song = entry.slice(0, splitIndex).trim();
     const artist = entry.slice(splitIndex + 1).trim();
