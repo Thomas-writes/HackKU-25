@@ -57,7 +57,7 @@ body {
     width: 710px;
     min-width: 60px;
     height: 60px;
-    top: 32rem;
+    top: 36rem;
 
     background: #4268BD;
     border-radius: 100px;
@@ -81,4 +81,13 @@ body {
     animation-duration: 2s;
     animation-direction: normal;
     animation-iteration-count: infinite;
+}
+
+#loading
+{
+    font-size: 36px;
+    color:#395AA6;
+    font-weight: bold;
+    position: absolute;
+    top: 28rem;
 }
