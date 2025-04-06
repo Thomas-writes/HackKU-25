@@ -53,6 +53,9 @@ async function handleRedirectAndCreate() {
   const code = new URLSearchParams(window.location.search).get("code");
   const verifier = localStorage.getItem("code_verifier");
 
+  console.log("Auth code:", code);
+  console.log("Code verifier:", verifier);
+
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -86,10 +89,15 @@ async function getValidAccessToken() {
     return token;
   }
 
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("expires_at");
+  localStorage.removeItem("code_verifier");
+  sessionStorage.clear();
+  
   // Token expired or missing — restart auth
   const verifier = generateRandomString(128);
   const challenge = await generateCodeChallenge(verifier);
-  localStorage.setItem("code_verifier", verifier);
+  localStorage.setItem("code_verifier", verifier); // ✅ crucial line
 
   const params = new URLSearchParams({
     client_id: clientId,
@@ -101,10 +109,6 @@ async function getValidAccessToken() {
     prompt: "consent",
     show_dialog: "true"
   });
-
-  // Clear existing tokens
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("expires_at");
 
   window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
   return null;
