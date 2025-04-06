@@ -53,6 +53,9 @@ async function handleRedirectAndCreate() {
   const code = new URLSearchParams(window.location.search).get("code");
 const verifier = localStorage.getItem("code_verifier");
 
+console.log("Code from URL:", code);
+console.log("Verifier from storage:", verifier);
+console.log("Code used already?", sessionStorage.getItem("code_used"));
 // Prevent double-use of the code
 if (!code || !verifier || sessionStorage.getItem("code_used")) {
   console.warn("Skipping token exchange: code already used or missing");
@@ -113,6 +116,8 @@ async function getValidAccessToken() {
     prompt: "consent",
     show_dialog: "true"
   });
+
+  localStorage.setItem("code_verifier", verifier);
 
   window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
   return null;
