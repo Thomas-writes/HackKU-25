@@ -8,6 +8,12 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" }
 //Gets song inside input box and sends to gemini
 async function getSong() 
 {
+  titleArray = [];
+  artistArray = [];
+  albumArray = [];
+  spotifyURLArray = [];
+  imageArray = [];
+  dict = {}
   let response;
   const song_name = document.getElementById("in").value;
   document.getElementById("in").value = "";
