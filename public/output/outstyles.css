@@ -23,9 +23,9 @@ body::before {
     top: 50px; /* Position the rounded rectangle up */
     left: 0;
     right: 0;
-    height: 400px; /* Height of the rounded rectangle */
+    height: 350px; /* Height of the rounded rectangle */
     background: #C2EFB3;
-    border-radius: 0 0 100px 100px; /* Rounded corners at the top */
+    border-radius: 50px; /* Rounded corners at the top */
     z-index: -1; /* Ensure the background stays behind the content */
 }
 
@@ -65,38 +65,46 @@ li.song-item:hover {
     background-color: #A40E4C;
 }
 
+#generation
+{
+    margin-top: 1rem;
+}
+
 /* Top Bar Styling */
 #topBar {
-    display: flex;
-    align-items: flex-start; /* Align logo and title to the left */
-    justify-content: flex-start; /* Center the title horizontally */
-    width: 100%;
-    padding: 1rem;
-    background-color: #395AA6;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    position: absolute; /* Fix the top bar to the top */
+    position: absolute;
     top: 0;
     left: 0;
-    right: 0;
-    z-index: 10; /* Ensure it stays above the other content */
+    display: flex;
+    align-items: flex-start; /* Align logo and title to the left */
+    justify-content: flex-start;
+    width: 100%;
+    height: 11vh;
+    background-color: #395AA6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 #logo {
-    height: 50px;
-    margin-right: 10px;
-    margin-left: 10px;
+    height: 75px;
+    position: absolute;
+    top: 0.2rem;
+    left: 0.12rem;
 }
 
 #t {
     font-family: 'Gabarito';
-    font-weight: 600; 
-    font-size: 2.5rem;
+    font-style:normal;
+    font-weight: 700;
+    font-size: 2.3rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
     -webkit-background-clip: text;
     background-clip: text;
-    color: transparent;
+    color: transparent; 
     letter-spacing: 2px;
-    margin: 0;
+    margin-left: 4rem;
+    position: absolute;
+    top: .95rem;
+    left: 1rem;
 }
 
 #button-container {
@@ -108,23 +116,31 @@ li.song-item:hover {
 }
 
 .square-box {
-    width: 350px;
-    height: 350px;
+    width: 325px;
+    height: 325px;
     background-color: #395AA6;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
+    margin-top: 1rem;
+}
+
+#playlist
+{
+    margin-top: 0rem;
 }
 
 button {
-    width: 300px;
-    height: 70px;
+    font-family: "Inter";
+    font-weight: 550;
+    letter-spacing: -0.06en;
+    width: 200px;
+    height: 50px;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
-    border-width: 5px;
+    border-width: 3px;
     border-radius: 100px;
     border-color: #395AA6;
     border-style: solid;
     outline: none;
-    font-size: 34px;
+    font-size: 24px;
     font-weight: semi-bold;
     color: #143150;
     transition: filter 0.2s ease-in-out, box-shadow 0.4s ease-in-out;
@@ -150,13 +166,14 @@ button:hover {
 }
 
 #song-list-title {
+    font-family: "Inter";
+    letter-spacing: -6en;
     padding-left: 10px;
-    margin-top: 100px;
-    font-size: 80px;
-    font-weight: bold;
-    background: #395AA6;
+    margin-top: 12rem;
+    font-size: 70px;
+    font-weight: 550;
+    background: #4268BD;
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    letter-spacing: 1px;
 }

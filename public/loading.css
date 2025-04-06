@@ -5,7 +5,9 @@
 }
 
 body {
-    font-family: "G";
+    font-family: "Inter";
+    font-weight: 550;
+    letter-spacing: -0.06em;
     margin: 0;
     background: linear-gradient(to bottom, #96D2FF, #C2EFB3);
     color: white;
@@ -14,6 +16,7 @@ body {
     align-items: center;
     height: 100vh;
 }
+
 
 #topBar {
     position: absolute;

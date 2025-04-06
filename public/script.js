@@ -64,7 +64,7 @@ function advSearch()
     setTimeout(() => {
                       //Set transition times and target values.
       ele.style.transition = "height 0.5s ease, opacity 0.5s ease";
-      ele.style.height = "32vh";
+      ele.style.height = "34vh";
       ele.style.opacity = "1";
                       //Set another timeout so the sliders don't seem to appear faster than the container.
       setTimeout(() => {sliders.forEach(slider => { slider.style.transition = "opacity 1.25s ease";slider.style.opacity = "1"; }); }, 200);}, 10);
