@@ -193,7 +193,6 @@ async function createPlaylist() {
         return alert("Cover upload failed.");
       }
 
-      alert("Playlist created successfully! Opening in Spotify...");
       window.open(playlist.external_urls.spotify, "_blank");
     };
 
