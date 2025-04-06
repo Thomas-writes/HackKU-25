@@ -122,13 +122,12 @@ localStorage.setItem("expires_at", Date.now() + tokenData.expires_in * 1000); //
 
 // --- Main Logic ---
 async function createPlaylist() {
-  const token = await getValidAccessToken();
-  if (!token) {
-    return alert("Couldn't get a valid Spotify access token.");
-  }
-  console.log("Token being used:", token);
+  const refreshToken = localStorage.getItem("refresh_token");
 
-  if (!token) {
+  // 👇 Force re-auth if there's no refresh token (even if access_token exists)
+  if (!refreshToken) {
+    console.warn("No refresh token, redirecting for fresh login");
+
     const verifier = generateRandomString(128);
     const challenge = await generateCodeChallenge(verifier);
     localStorage.setItem("code_verifier", verifier);
@@ -140,17 +139,27 @@ async function createPlaylist() {
       code_challenge_method: "S256",
       code_challenge: challenge,
       scope: scopes.join(" "),
-      prompt: "consent"
+      prompt: "consent", // force re-approval and return refresh_token
     });
-  
+
+    // Remove everything before redirecting
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("expires_at");
     localStorage.removeItem("code_verifier");
-  
+
     window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
     return;
   }
+
+  // If we do have a refresh token, continue as normal
+  const token = await getValidAccessToken();
+  if (!token) {
+    return alert("Couldn't get a valid Spotify access token.");
+  }
+
+  console.log("Token being used:", token);
+
 
   const userRes = await fetch("https://api.spotify.com/v1/me", {
     headers: { Authorization: `Bearer ${token}` },
