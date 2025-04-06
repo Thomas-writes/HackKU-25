@@ -164,7 +164,7 @@ export function main(loadingWindow) {
           }
         } catch (err) {}
       }, 100);
-    }, 1000); // Wait 3 seconds AFTER data is ready
+    }, 1000);
   }
 
   return fetch('https://accounts.spotify.com/api/token', {
