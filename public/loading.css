@@ -1,7 +1,7 @@
-@keyframes animateBody
+@keyframes animateBar
 {
-
-
+    from {width: 9%}
+    to {width: 100%;}
 }
 
 body {
@@ -52,60 +52,32 @@ body {
 
     position: absolute;
 
-    width: 713px;
-    height: 70px;
+    width: 710px;
+    min-width: 60px;
+    height: 60px;
     left: 24rem;
-    top: 20rem;
+    top: 34rem;
 
     background: #4268BD;
     border-radius: 100px;
 }
 
+#cassette
+{
+    position: absolute;
+    top: 0rem;
+    width: 700px;
+    height: 700px;
+}
 
 #loading_bar
 {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
-    border-radius: 100px;
-}
-
-/*
-flex: none;
-order: 0;
-flex-grow: 0;*/
-
-/* body part 2*/
-#loading_bar_background2
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    gap: 10px;
-
-    position: absolute;
     width: 713px;
-    height: 70px;
-    left: 20px;
-    top: 134px;
-
-    background: #4268BD;
-    border-radius: 100px;
-}
-
-
-/* loading bar*/
-#loading_bar2
-{
-    width: 703px;
     height: 60px;
     background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
     border-radius: 100px;
+    animation-name: animateBar;
+    animation-duration: 2s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
 }
-
-/*
-flex: none;
-order: 0;
-flex-grow: 0;
-*/

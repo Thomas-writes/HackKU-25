@@ -8,6 +8,7 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" }
 async function getSong() 
 {
   spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
+  //Declare variables for future use.
   titleArray = [];
   artistArray = [];
   albumArray = [];
@@ -15,11 +16,16 @@ async function getSong()
   imageArray = [];
   dict = {}
   let response;
+
+  //obtain the song that the user enters and then clear the input box
   const song_name = document.getElementById("in").value;
   document.getElementById("in").value = "";
+
+  //checks if the user used advanced search or not.
   const adv_search = document.getElementById("adv_search");
   if(adv_search.style.display == "none") 
   {
+    //Doesn't use advanced search parameters if the display is none.
     response = await ai.models.generateContent(
     {
       model: "gemini-2.0-flash",
@@ -29,7 +35,7 @@ async function getSong()
   }
   else
   {
-    console.log(document.getElementsByClassName("slider"));
+    //Uses advanced search parameters if the display is not none.
     const num_songs = document.getElementById("NUM").value;
     const BPM = document.getElementById("BPM").value;
     const duration = document.getElementById("DUR").value;
@@ -42,13 +48,15 @@ async function getSong()
         " Please do not say anything else but the song names and artist. Please make sure that at least half the songs aren't mainstream"
       });
   }
+  //Create an array of the songs and artists obtained.
   let list = response.text;
-  console.log(response.text);
   list = list.split("\n").slice(0,-1);
   sendToSpotify(list);
 }
 
-function advSearch() {
+//This function is used to toggle the visibility of the advanced search options.
+function advSearch() 
+{
   const ele = document.getElementById("adv_search");
   const sliders = ele.querySelectorAll(".slider"); // Select all slider elements inside adv_search
 
@@ -58,27 +66,31 @@ function advSearch() {
     ele.style.opacity = "0";
     sliders.forEach(slider => (slider.style.opacity = "0")); // Hide sliders initially
 
+    //Set a timeout to make sure everything is applied correctly.
     setTimeout(() => {
-      ele.style.transition = "height 0.5s ease, opacity 0.5s ease"; // Add height and opacity transitions
-      ele.style.height = "32vh"; // Target height (adjust as needed)
-      ele.style.opacity = "1"; // Fade in the container
-
-      setTimeout(() => {
-        sliders.forEach(slider => {
-          slider.style.transition = "opacity 1.25s ease"; // Add opacity transition for sliders
-          slider.style.opacity = "1"; // Fade in sliders
-        });
-      }, 200); // Delay the slider appearance slightly more
-    }, 10); // Small delay to ensure transition is applied
-  } else {
-    ele.style.transition = "height 0.5s ease, opacity 0.5s ease"; // Add height and opacity transitions
-    ele.style.height = "0px"; // Collapse to height 0
-    ele.style.opacity = "0"; // Fade out the container
-    sliders.forEach(slider => (slider.style.opacity = "0")); // Fade out sliders
-
+                      //Set transition times and target values.
+                      ele.style.transition = "height 0.5s ease, opacity 0.5s ease";
+                      ele.style.height = "32vh";
+                      ele.style.opacity = "1";
+                      //Set another timeout so the sliders don't seem to appear faster than the container.
+                      setTimeout(() => {
+                      sliders.forEach(slider => {
+                                              slider.style.transition = "opacity 1.25s ease";
+                                              slider.style.opacity = "1";
+                                              });
+                    }, 200);
+  }, 10);
+  } 
+  else 
+  {
+    ele.style.transition = "height 0.5s ease, opacity 0.5s ease"; 
+    ele.style.height = "0px";
+    ele.style.opacity = "0";
+    sliders.forEach(slider => (slider.style.opacity = "0"));
+    //Set display to none after the transition is done.
     setTimeout(() => {
-      ele.style.display = "none"; // Hide after animation
-    }, 900); // Match the duration of the transition
+      ele.style.display = "none";
+    }, 900);
   }
 }
 
@@ -88,9 +100,12 @@ function sendToSpotify(list)
   console.log(list);
   for(let iterate = 0; iterate < list.length; iterate++)
   {
+    //Data in list is stored in the format of "Song - Artist", split based of the dash
     dict[list[iterate].slice(0, list[iterate].indexOf("-"))] = list[iterate].slice(list[iterate].indexOf("-")+2);
   }
+  //Test variable to verify that the data is being divided correctly.
   console.log(dict);
+  //Call the main function to send the data to the spotify API.
   main();
 }
 
