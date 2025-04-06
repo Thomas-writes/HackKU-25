@@ -51,10 +51,14 @@ async function generateCodeChallenge(codeVerifier) {
 
 async function handleRedirectAndCreate() {
   const code = new URLSearchParams(window.location.search).get("code");
-  const verifier = localStorage.getItem("code_verifier");
+const verifier = localStorage.getItem("code_verifier");
 
-  console.log("Auth code:", code);
-  console.log("Code verifier:", verifier);
+// Prevent double-use of the code
+if (!code || !verifier || sessionStorage.getItem("code_used")) {
+  console.warn("Skipping token exchange: code already used or missing");
+  return;
+}
+sessionStorage.setItem("code_used", "true");
 
   const tokenRes = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -93,7 +97,7 @@ async function getValidAccessToken() {
   localStorage.removeItem("expires_at");
   localStorage.removeItem("code_verifier");
   sessionStorage.clear();
-  
+
   // Token expired or missing — restart auth
   const verifier = generateRandomString(128);
   const challenge = await generateCodeChallenge(verifier);
