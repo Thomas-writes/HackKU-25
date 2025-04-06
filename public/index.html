@@ -17,14 +17,12 @@
     <div id="input-container">
         <input placeholder="Enter Song Name Here!" type="text" id="in">
         <br>
-        <div id = "advanced">Advanced Search<button  onclick ="advSearch()" id="dropdown">V</button></div>
-        <div id = adv_search>
-            <div className = "slide_container">
+        <div id = "advanced">Advanced Search<button onclick="advSearch()" id="dropdown">V</button></div>
+        <div id = adv_search className = "slide_container">
                 <br><br>
-                <p>Tempo Range (BPM):<input type="range" min="40" max="180" value="90" class="slider" id="BPM"></p>
-                <p>Duration (Minutes):<input type="range" min="1" max="30" value="5" class="slider" id="DUR"></p>
-                <p>Number of Songs:<input type="range" min="1" max="51" value="10" class="slider" id="NUM"></p>
-            </div>
+                <p>Tempo (BPM):<p id = "BPMstart">40</p><p id = "BPMend">200</p><input type="range" min="8" max="20" value="40" class="slider" id="BPM"></p>
+                <p>Duration (Minutes):<p id = "DURstart">1</p><p id = "DURend">10</p><input type="range" min="1" max="30" value="10" class="slider" id="DUR"></p>
+                <p>Number of Songs:<p id = "NUMstart">1</p><p id = "NUMend">51</p><input type="range" min="1" max="51" value="10" class="slider" id="NUM"></p>
         </div>
     </div>
     

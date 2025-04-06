@@ -157,24 +157,38 @@ body {
 
 @keyframes dropdown
 {
-    from {height: 0}
-    to {height: 100}
+    0% {max-height: 0;
+        opacity: 0;}
+    100% {max-height: 32vh;
+        opacity: 1;}
 }
+
+@keyframes dropUp {
+    0% {
+      max-height: 32vh;
+      opacity: 1;
+    }
+    100% {
+      max-height: 0;
+      opacity: 0;
+    }
+  }
 
 #adv_search
 {
-    color: #395AA6;
-    display: none;
-    position: absolute;
-    top: 7rem;
-    background: #C2EFB3;
-    height: 32vh;
-    left: 3.6rem;
-    text-align: center;
-    border-radius: 25px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
-    z-index: 0;
-    animation-name: dropdown;
+      color: #395AA6;
+      display: none;
+      position: absolute;
+      top: 7rem;
+      height: 16rem;
+      width: 18rem;
+      background: #C2EFB3;
+      transition: height 0.5s ease;
+      left: 3.6rem;
+      text-align: center;
+      border-radius: 25px;
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+      z-index: 0;
 }
 
 
@@ -190,6 +204,7 @@ body {
     opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
     -webkit-transition: .2s; /* 0.2 seconds transition on hover */
     transition: opacity .2s;
+    scroll-snap-type: x mandatory;
     border-radius: 10px;
     border-width: 2.4px;
     border-style: solid;
@@ -208,6 +223,60 @@ body {
     border-width: 2.4px;
     border-color:#224492;
   }
+
+#BPMstart 
+{
+    position: absolute;
+    top: 5.9rem;
+    font-size: 10px;
+    left: 2rem;
+    z-index: 999
+}
+
+#BPMend
+{
+    position: absolute;
+    top: 5.9rem;
+    font-size: 10px;
+    left: 15.1rem;
+    z-index: 999
+}
+
+#DURstart 
+{
+    position: absolute;
+    top: 10rem;
+    font-size: 10px;
+    left: 2.3rem;
+    z-index: 999
+}
+
+#DURend
+{
+    position: absolute;
+    top: 10rem;
+    font-size: 10px;
+    left: 15.2rem;
+    z-index: 999
+}
+
+#NUMstart 
+{
+    position: absolute;
+    top: 14.2rem;
+    font-size: 10px;
+    left: 2.3rem;
+    z-index: 999
+}
+
+#NUMend
+{
+    position: absolute;
+    top: 14.2rem;
+    font-size: 10px;
+    left: 15.3rem;
+    z-index: 999
+}
 
 button {
     width: 200px;
