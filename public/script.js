@@ -37,7 +37,7 @@ const loadingWindow = window.open('./loading.html', '_blank'); // 🚀 Opens ins
     response = await ai.models.generateContent(
       {
         model: "gemini-2.0-flash", //Prompt for AI when not in advanced search 
-
+ 
         contents: "List " + num_songs +" song(s) similar to " + song_name + " that are within +-" + BPM*5 + " BPM with between +- 10 BPM for error. They should also be around " + duration + 
         " minutes long, between +- 1 minute for error. List no descriptions. Use no formatting or mark ups and separate the song names from the artist by a -." +
         " Do not list anything but song names and artist. At least half the songs should not appear frequently on radio stations. Similar songs should have similar vibes, feelings and instrumentation."

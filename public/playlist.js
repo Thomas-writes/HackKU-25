@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (createBtn) {
     createBtn.addEventListener("click", () => {
       console.log("Create button clicked");
-      createPlaylist();
+      createPlaylist(spotifyURIArray);
     });
   }
 
@@ -62,7 +62,6 @@ async function handleRedirectAndCreate() {
 
   sessionStorage.setItem("code_used", "true");
 
-  // ✅ MOVE THIS LINE HERE — after reading the code
   const cleanUrl = window.location.origin + window.location.pathname;
   window.history.replaceState({}, document.title, cleanUrl);
 
@@ -91,7 +90,7 @@ async function handleRedirectAndCreate() {
   // Optionally log all tokens
   console.log("Token data:", tokenData);
 
-  createPlaylist();
+  createPlaylist(spotifyURIArray);
 }
 
 
@@ -130,8 +129,7 @@ async function getValidAccessToken() {
   return null;
 }
 
-// --- Main Logic ---
-async function createPlaylist() {
+async function createPlaylist(trackUris = null) {
   const token = await getValidAccessToken();
   if (!token) return; // user will be redirected
 
@@ -170,8 +168,14 @@ async function createPlaylist() {
   }
 
   const playlist = await playlistRes.json();
-  const trackUris = spotifyURIArray.filter(
-    (uri) => typeof uri === "string" && uri.startsWith("spotify:track:")
+
+  // ✅ Use passed-in URIs if available, else fallback to localStorage
+  if (!trackUris) {
+    trackUris = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
+  }
+
+  trackUris = trackUris.filter(uri =>
+    typeof uri === "string" && uri.startsWith("spotify:track:")
   );
 
   if (!trackUris.length) {
@@ -232,3 +236,4 @@ async function createPlaylist() {
     window.open(playlist.external_urls.spotify, "_blank");
   }
 }
+ 
