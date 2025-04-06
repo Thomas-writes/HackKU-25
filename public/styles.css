@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter';
     font-style: italic;
     letter-spacing: -6em;
     font-weight: 500;
@@ -78,7 +78,7 @@ body {
 }
 
 #dtext {
-    font-family: "Inter" serif;
+    font-family: "Inter";
     font-style: italic;
     color: black;
     font-size: 16px;
