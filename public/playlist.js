@@ -1,7 +1,7 @@
 console.log("Script loaded.");
 
 const clientId = "408141d3d0da4e43a7d4324f99e95d7c";
-const redirectUri = "https://spotasonghackku25.web.app/output/output.html";
+const redirectUri = "https://hack-ku-25.vercel.app/output/output.html";
 const scopes = ["playlist-modify-public", "playlist-modify-private"];
 
 const spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
