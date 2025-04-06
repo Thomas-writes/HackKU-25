@@ -187,6 +187,7 @@ export function main() {
           }
         }, 100);
       }, 3000);
+        }
 
   // Fetch access token and begin search
   return fetch('https://accounts.spotify.com/api/token', {
@@ -211,5 +212,5 @@ export function main() {
       console.error('Error fetching access token:', error);
   });
 };
-}
+
 document.toggleDropdown = toggleDropdown;
