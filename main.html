@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HackKU 2025</title>
     <link rel="stylesheet" href="styles.css">
@@ -10,34 +9,29 @@
 <body>
 
     <div id="topBar">
-        <img src="/temp.jpg" alt="logo" id="logo">
+        <img src="/icon.png" alt="logo" id="logo">
         <h1 id="t">spot-a-song</h1>
     </div>
     
     <!-- Left-aligned input field -->
     <div id="input-container">
-        <input placeholder="Enter URL here..." type="text" id="in">
+        <input placeholder="Enter Song Name Here!" type="text" id="in">
         <br>
-        <span id="dtext">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas porttitor semper orci, sed varius velit fringilla a. Morbi pretium ex eu nunc semper, quis suscipit nunc sodales. Nullam placerat aliquam justo et varius. In gravida sodales lorem eget tempus. Morbi nec commodo leo. Ut commodo vehicula massa, vel cursus magna tincidunt vitae. Integer odio nisl, pellentesque eu hendrerit ultrices, faucibus vel arcu.
-        </span>
+        <div id = "advanced">Advanced Search<button  onclick ="advSearch()" id="dropdown">V</button></div>
+        <div id = adv_search>
+            <div className = "slide_container">
+                <br><br>
+                <p>Tempo Range (BPM):<input type="range" min="40" max="180" value="90" class="slider" id="BPM"></p>
+                <p>Duration (Minutes):<input type="range" min="1" max="30" value="5" class="slider" id="DUR"></p>
+                <p>Number of Songs:<input type="range" min="1" max="51" value="10" class="slider" id="NUM"></p>
+            </div>
+        </div>
     </div>
     
     <!-- Button at the bottom (centered horizontally) -->
     <div id="button-container">
-        <div id="square-box"></div>
+        <img id="square-box" src="/cassete.png" alt="cassette icon">
         <button onClick="getSong()">Generate</button>
-        <button onclick ="advSearch()">
-            Advanced
-        </button>
-    </div>
-
-    <div id = adv_search>
-        <div className = "slide_container">
-            <p>Tempo Range (BPM):<input type="range" min="40" max="180" value="90" class="slider" id="BPM"></p>
-            <p>Duration (Mins):<input type="range" min="1" max="30" value="5" class="slider" id="DUR"></p>
-            <p># of Songs:<input type="range" min="1" max="50" value="10" class="slider" id="NUM"></p>
-        </div>
     </div>
     
     
