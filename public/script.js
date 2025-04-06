@@ -25,16 +25,21 @@ const loadingWindow = window.open('/loading.html', '_blank'); // 🚀 Opens inst
   if (adv_search.style.display === "none") {
     response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: `List 10 songs similar to ${song_name} with no description. Separate song and artist with " - ".`,
+      contents: "List 10 songs similar to " + song_name + ". Listed songs should have similar vibes, feelings and instrumentation. Format each entry as 'Song Title - Artist' with no additional text, commentary, " +
+      "formatting, or numbering. At least 5 songs must be non-mainstream or lesser-known. Omit any special characters like periods, apostrphes, etc."
     });
   } else {
     const num_songs = document.getElementById("NUM").value;
     const BPM = document.getElementById("BPM").value;
     const duration = document.getElementById("DUR").value;
-    response = await ai.models.generateContent({
-      model: "gemini-2.0-flash",
-      contents: `List ${num_songs} songs like ${song_name} around ${duration} minutes and within ${BPM * 5} BPM. No descriptions. Use " - ".`,
-    });
+    response = await ai.models.generateContent(
+      {
+        model: "gemini-2.0-flash",
+
+        contents: "List " + num_songs +" song(s) similar to " + song_name + " that are within +-" + BPM*5 + " BPM with between +- 10 BPM for error. They should also be around " + duration + 
+        " minutes long, between +- 1 minute for error. List no descriptions. Use no formatting or mark ups and separate the song names from the artist by a -." +
+        " Do not list anything but song names and artist. At least half the songs should not appear frequently on radio stations. Similar songs should have similar vibes, feelings and instrumentation."
+      });
   }
 
   let list = response.text.trim().split("\n").filter(Boolean);
@@ -83,13 +88,15 @@ function advSearch()
 function sendToSpotify(list, loadingWindow) {
   dict = {};
 
-  for (let entry of list) {
-    const splitIndex = entry.indexOf("-");
+  for (let line of list) 
+  {
+    const splitIndex = line.indexOf("-");
     if (splitIndex === -1) continue;
     const song = entry.slice(0, splitIndex).trim();
     const artist = entry.slice(splitIndex + 1).trim();
     dict[song] = artist;
   }
+  console.log(dict);
 
   main(loadingWindow);
 }
