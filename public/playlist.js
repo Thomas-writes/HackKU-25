@@ -68,7 +68,7 @@ async function handleRedirectAndCreate() {
 // --- Main Logic ---
 async function createPlaylist() {
   const token = localStorage.getItem("access_token");
-
+  console.log("Token being used:", token);
   if (!token) {
     const verifier = generateRandomString(128);
     const challenge = await generateCodeChallenge(verifier);
