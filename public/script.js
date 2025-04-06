@@ -186,7 +186,7 @@ export function main() {
             // Ignore errors during navigation
           }
         }, 100);
-      }, 3000);
+      }, 2000);
         }
 
   // Fetch access token and begin search
