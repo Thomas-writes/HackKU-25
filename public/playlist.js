@@ -9,48 +9,10 @@ const scopes = [
 ];
 
 const spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
-console.log("Redirect URI being sent to Spotify:", redirectUri);
-
-async function getValidAccessToken() {
-  const token = localStorage.getItem("access_token");
-  const expiresAt = parseInt(localStorage.getItem("expires_at") || "0", 10);
-  const refreshToken = localStorage.getItem("refresh_token");
-
-  if (Date.now() < expiresAt && token) {
-    return token; // token is still valid
-  }
-
-  if (!refreshToken) {
-    console.error("No refresh token available.");
-    return null;
-  }
-
-  const res = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      grant_type: "refresh_token",
-      refresh_token: refreshToken,
-      client_id: clientId,
-    }),
-  });
-
-  const data = await res.json();
-  if (!res.ok || data.error) {
-    console.error("Failed to refresh token:", data);
-    return null;
-  }
-
-  localStorage.setItem("access_token", data.access_token);
-  localStorage.setItem("expires_at", Date.now() + data.expires_in * 1000);
-  return data.access_token;
-}
-
 
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded");
   const createBtn = document.getElementById("create");
-  console.log("Create button:", createBtn);
   if (createBtn) {
     createBtn.addEventListener("click", () => {
       console.log("Create button clicked");
@@ -61,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.location.search.includes("code=") && !sessionStorage.getItem("playlist_created")) {
     sessionStorage.setItem("playlist_created", "true");
 
-    // Clean up URL early to avoid refresh loops
+    // Clean up the URL
     const cleanUrl = window.location.origin + window.location.pathname;
     window.history.replaceState({}, document.title, cleanUrl);
 
@@ -87,7 +49,6 @@ async function generateCodeChallenge(codeVerifier) {
     .replace(/=+$/, "");
 }
 
-// --- Handle Redirect ---
 async function handleRedirectAndCreate() {
   const code = new URLSearchParams(window.location.search).get("code");
   const verifier = localStorage.getItem("code_verifier");
@@ -112,54 +73,47 @@ async function handleRedirectAndCreate() {
   }
 
   localStorage.setItem("access_token", tokenData.access_token);
-if (tokenData.refresh_token) {
-  localStorage.setItem("refresh_token", tokenData.refresh_token);
-}
-localStorage.setItem("expires_at", Date.now() + tokenData.expires_in * 1000); // token expiration time
+  localStorage.setItem("expires_at", Date.now() + tokenData.expires_in * 1000);
 
   createPlaylist();
 }
 
+async function getValidAccessToken() {
+  const token = localStorage.getItem("access_token");
+  const expiresAt = parseInt(localStorage.getItem("expires_at") || "0", 10);
+
+  if (token && Date.now() < expiresAt) {
+    return token;
+  }
+
+  // Token expired or missing — restart auth
+  const verifier = generateRandomString(128);
+  const challenge = await generateCodeChallenge(verifier);
+  localStorage.setItem("code_verifier", verifier);
+
+  const params = new URLSearchParams({
+    client_id: clientId,
+    response_type: "code",
+    redirect_uri: redirectUri,
+    code_challenge_method: "S256",
+    code_challenge: challenge,
+    scope: scopes.join(" "),
+    prompt: "consent",
+    show_dialog: "true"
+  });
+
+  // Clear existing tokens
+  localStorage.removeItem("access_token");
+  localStorage.removeItem("expires_at");
+
+  window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
+  return null;
+}
+
 // --- Main Logic ---
 async function createPlaylist() {
-  const refreshToken = localStorage.getItem("refresh_token");
-
-  // 👇 Force re-auth if there's no refresh token (even if access_token exists)
-  if (!refreshToken) {
-    console.warn("No refresh token, redirecting for fresh login");
-
-    const verifier = generateRandomString(128);
-    const challenge = await generateCodeChallenge(verifier);
-    localStorage.setItem("code_verifier", verifier);
-
-    const params = new URLSearchParams({
-      client_id: clientId,
-      response_type: "code",
-      redirect_uri: redirectUri,
-      code_challenge_method: "S256",
-      code_challenge: challenge,
-      scope: scopes.join(" "),
-      prompt: "consent", // force re-approval and return refresh_token
-    });
-
-    // Remove everything before redirecting
-    localStorage.removeItem("access_token");
-    localStorage.removeItem("refresh_token");
-    localStorage.removeItem("expires_at");
-    localStorage.removeItem("code_verifier");
-
-    window.location = `https://accounts.spotify.com/authorize?${params.toString()}`;
-    return;
-  }
-
-  // If we do have a refresh token, continue as normal
   const token = await getValidAccessToken();
-  if (!token) {
-    return alert("Couldn't get a valid Spotify access token.");
-  }
-
-  console.log("Token being used:", token);
-
+  if (!token) return; // user will be redirected
 
   const userRes = await fetch("https://api.spotify.com/v1/me", {
     headers: { Authorization: `Bearer ${token}` },
@@ -196,15 +150,12 @@ async function createPlaylist() {
   }
 
   const playlist = await playlistRes.json();
-  const trackUris = (JSON.parse(localStorage.getItem("spotifyURIArray") || "[]"))
-  .filter(uri => typeof uri === "string" && uri.startsWith("spotify:track:"));
+  const trackUris = spotifyURIArray.filter(
+    (uri) => typeof uri === "string" && uri.startsWith("spotify:track:")
+  );
 
   if (!trackUris.length) {
     return alert("No valid tracks found. Generate a playlist first.");
-  }
-
-  if (!trackUris.length) {
-    return alert("No tracks found. Generate a playlist first.");
   }
 
   const addTracksRes = await fetch(
@@ -251,7 +202,7 @@ async function createPlaylist() {
         console.error("Image upload failed:", err);
         return alert("Cover upload failed.");
       }
-      //opens the playlist in spotify
+
       window.open(playlist.external_urls.spotify, "_blank");
     };
 
