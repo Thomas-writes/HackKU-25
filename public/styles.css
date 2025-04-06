@@ -5,10 +5,13 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Commissioner', sans-serif;
+    font-family: 'Inter';
+    font-style: italic;
+    letter-spacing: -6em;
+    font-weight: 500;
     margin: 0;
+    color: #3A5D86;
     background: linear-gradient(to bottom, #96D2FF, #C2EFB3);
-    color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,37 +20,47 @@ body {
 
 /* Top Bar Styling */
 #topBar {
+    position: absolute;
+    top: 0;
     display: flex;
     align-items: flex-start; /* Align logo and title to the left */
     justify-content: flex-start;
     width: 100%;
+    height: 11vh;
     padding: 1rem;
     background-color: #395AA6;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
 #logo {
-    height: 50px;
-    margin-right: 10px;
-    margin-left: 10px;
+    height: 75px;
+    position: absolute;
+    top: 0.2rem;
+    left: 0.1rem;
 }
 
 #triangle
 {
+    color: white;
     position: absolute;
     font-size: 26px;
-    left: -0.079rem;
-    top: -0.1rem;
+    left: 0.02rem;
+    top: 0.04rem;
 }
 
 #t {
-    font-size: 2.5rem;
+    font-family: 'Gabarito';
+    font-style:normal;
+    font-weight: 700;
+    font-size: 2.3rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent; 
     letter-spacing: 2px;
-    margin: 0;
+    margin-left: 4rem;
+    position: absolute;
+    top: 0.95rem;
 }
 
 /* Input Field Container (Left aligned and vertically centered) */
@@ -65,32 +78,40 @@ body {
 }
 
 #dtext {
+    font-family: "Inter";
+    font-style: italic;
     color: black;
-    font-size: 20px;
-    font-weight: normal;
+    font-size: 16px;
+    font-weight: 200;
     width: 100%;
+    text-align: center;
     max-width: 600px; 
     word-wrap: break-word; 
     overflow-wrap: break-word; 
     white-space: normal; 
     line-height: 1.5; 
     margin-top: 10px; 
+    position: absolute;
+    top: -4.6rem;
 }
 
 /* Input Field Styling */
 #in {
+    font-family: "Inter" sans-serif;
+    
+    font-weight: 550;
     padding-top: 10px;
     padding-left: 20px;
     padding-bottom: 10px;
     font-size: 34px;
     font-style: italic;
-    color: #395AA6;
-    border-width: 5px;
+    color: #3A5D86;
+    border-width: 4px;
     border-radius: 100px;
     height: 70px;
     width: 600px;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #395AA6);
-    border-color: #395AA6;
+    border-color: #4268BD;
     border-style: solid;
     outline: none;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
@@ -115,7 +136,7 @@ body {
     left: 11rem;
     text-align: center;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
-    border-width: 5px;
+    border-width: 3px;
     border-radius: 100px;
     border-color: #395AA6;
     border-style: solid;
@@ -131,15 +152,16 @@ body {
 {
     font-family: Arial, Helvetica, sans-serif;
     position: absolute;
-    left: 17rem;
-    top: 0.241rem;
-    width: 2rem;
-    height: 2rem;
+    left: 17.15rem;
+    top: 0.23rem;
+    width: 2.2rem;
+    height: 2.2rem;
     font-size: 24px;
     color: white;
     font-weight:bolder;
     box-shadow: none;
-    background: #395AA6;
+    background: #4268BD;
+    border-color: #4268BD;
     z-index: 1;
 }
 
@@ -153,38 +175,33 @@ body {
     top: 50%;
     transform: translateY(-50%);  
     gap: 15px;                   
-    padding-right: 150px;
+    padding-top: 0px;
+    padding-right: 20px;
+}
+
+#generate
+{
+    font-family: "Inter" sans-serif;
+    font-weight: 550;
+    letter-spacing: -0.06em;
+    color: #143150;
+    border-color: #4268BD;
+    border-width: 3px;
+    position: absolute;
+    top: 38.15rem;
+    left: 13rem;
+    height: 3.4rem;
 }
 
 #square-box {
-    width: 500px;
-    height: 500px;
+    width: 650px;
+    height: 650px;
     background-color: transparent;
-    margin-bottom: 20px;
 }
-
-@keyframes dropdown
-{
-    0% {max-height: 0;
-        opacity: 0;}
-    100% {max-height: 32vh;
-        opacity: 1;}
-}
-
-@keyframes dropUp {
-    0% {
-      max-height: 32vh;
-      opacity: 1;
-    }
-    100% {
-      max-height: 0;
-      opacity: 0;
-    }
-  }
 
 #adv_search
 {
-      color: #395AA6;
+      color: #3A5D86;
       display: none;
       position: absolute;
       top: 7rem;
@@ -198,7 +215,6 @@ body {
       box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
       z-index: 0;
 }
-
 
 .slider
 {
@@ -253,7 +269,7 @@ body {
 #DURstart 
 {
     position: absolute;
-    top: 10rem;
+    top: 10.1rem;
     font-size: 10px;
     left: 2.3rem;
     z-index: 999
@@ -262,7 +278,7 @@ body {
 #DURend
 {
     position: absolute;
-    top: 10rem;
+    top: 10.1rem;
     font-size: 10px;
     left: 15.2rem;
     z-index: 999
@@ -271,7 +287,7 @@ body {
 #NUMstart 
 {
     position: absolute;
-    top: 14.2rem;
+    top: 14.4rem;
     font-size: 10px;
     left: 2.3rem;
     z-index: 999
@@ -280,7 +296,7 @@ body {
 #NUMend
 {
     position: absolute;
-    top: 14.2rem;
+    top: 14.4rem;
     font-size: 10px;
     left: 15.3rem;
     z-index: 999

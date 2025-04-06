@@ -6,7 +6,7 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" }
 
 //Gets song inside input box and sends to gemini
 async function getSong(){
-const loadingWindow = window.open('/loading.html', '_blank'); // 🚀 Opens instantly!
+const loadingWindow = window.open('./loading.html', '_blank'); // 🚀 Opens instantly!
 
   // ⏳ Prepare everything else
   spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
@@ -51,6 +51,7 @@ const loadingWindow = window.open('/loading.html', '_blank'); // 🚀 Opens inst
 function advSearch() 
 {
   const ele = document.getElementById("adv_search");
+  const drop = document.getElementById("dropdown");
   const sliders = ele.querySelectorAll(".slider"); // Select all slider elements inside adv_search
 
   if (ele.style.display == "none" || ele.style.display == "") {
@@ -149,7 +150,7 @@ export function main(loadingWindow) {
     }
 
     setTimeout(() => {
-      loadingWindow.location.href = '/output/output.html';
+      loadingWindow.location.href = './output/output.html';
 
       const interval = setInterval(() => {
         try {       // This is a delay function to display the loading page until the code is done creating the song list

@@ -4,6 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HackKU 2025</title>
     <link rel="stylesheet" href="styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Gabarito' rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <script src="script.js" type="module"></script>
 </head>
 <body>
@@ -15,21 +17,22 @@
     
     <!-- Left-aligned input field -->
     <div id="input-container">
-        <input placeholder="Enter Song Name Here!" type="text" id="in">
+        <input placeholder="enter song name here!" type="text" id="in">
         <br>
-        <div id = "advanced">Advanced Search<button onclick="advSearch()" id="dropdown"><p id ="triangle">▼</p></button></div>
+        <text id="dtext">enter in a song title, artist, or genre and watch the magic happen! <br>certain words, including artist names, deemed 18+ will not be able to generate any music.</text>
+        <div id = "advanced">advanced search<button onclick="advSearch()" id="dropdown"><p id ="triangle">▼</p></button></div>
         <div id = adv_search className = "slide_container">
                 <br><br>
-                <p>Tempo (BPM):<p id = "BPMstart">40</p><p id = "BPMend">200</p><input type="range" min="8" max="40" value="16" class="slider" id="BPM"></p>
-                <p>Duration (Minutes):<p id = "DURstart">1</p><p id = "DURend">10</p><input type="range" min="1" max="10" value="4" class="slider" id="DUR"></p>
-                <p>Number of Songs:<p id = "NUMstart">1</p><p id = "NUMend">51</p><input type="range" min="1" max="51" value="10" class="slider" id="NUM"></p>
+                <p>tempo (bpm):<p id = "BPMstart">40</p><p id = "BPMend">200</p><input type="range" min="8" max="40" value="16" class="slider" id="BPM"></p>
+                <p>duration (minutes):<p id = "DURstart">1</p><p id = "DURend">10</p><input type="range" min="1" max="10" value="4" class="slider" id="DUR"></p>
+                <p>number of songs:<p id = "NUMstart">1</p><p id = "NUMend">51</p><input type="range" min="1" max="51" value="10" class="slider" id="NUM"></p>
         </div>
     </div>
     
     <!-- Button at the bottom (centered horizontally) -->
     <div id="button-container">
-        <img id="square-box" src="./cassete.png" alt="cassette icon">
-        <button onClick="getSong()">Generate</button>
+        <img id="square-box" src="./best_cassette.png" alt="cassette icon">
+        <button onClick="getSong()" id = "generate">generate</button>
     </div>
 </body>
 </html>
