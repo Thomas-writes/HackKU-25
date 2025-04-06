@@ -91,7 +91,7 @@ function sendToSpotify(list, loadingWindow) {
     dict[song] = artist;
   }
 
-  main(loadingWindow); // Pass window
+  main(loadingWindow);
 }
 
 document.advSearch = advSearch;
@@ -144,7 +144,6 @@ export function main(loadingWindow) {
       }
     }
 
-    // 🔥 Wait exactly 3 seconds then redirect
     setTimeout(() => {
       loadingWindow.location.href = '/output/output.html';
 
@@ -160,7 +159,7 @@ export function main(loadingWindow) {
           }
         } catch (err) {}
       }, 100);
-    }, 3000); // Wait 3 seconds AFTER data is ready
+    }, 1000); // Wait 3 seconds AFTER data is ready
   }
 
   return fetch('https://accounts.spotify.com/api/token', {
