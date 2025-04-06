@@ -1,5 +1,5 @@
 
-
+let dict = {}
 import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+esm';
 
 //create gemini AI
@@ -56,7 +56,6 @@ function sendToSpotify(list)
 {
   //Converts data obtained from gemini into a dictionary to send to the sptoify API
   console.log(list);
-  let dict = {};
   for(let iterate = 0; iterate < list.length; iterate++)
   {
     dict[list[iterate].slice(0, list[iterate].indexOf("-"))] = list[iterate].slice(list[iterate].indexOf("-")+2);
@@ -129,7 +128,7 @@ export function main() {
               clearInterval(interval); // Stop checking once the message is sent
               
               // Now close the original window (this window)
-              window.close(); // This closes the original window
+               // This closes the original window
           }
       }, 100); // Check every 100ms
   }
