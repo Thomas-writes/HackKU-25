@@ -190,6 +190,3 @@ export function main(loadingWindow) {
       console.error('Error fetching access token:', error);
     });
 }
-
-
-document.toggleDropdown = toggleDropdown;
