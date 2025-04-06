@@ -28,8 +28,8 @@ body {
 
 #logo {
     height: 50px;
-    margin-right: 30px;
-    margin-left: 30px;
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 #t {
@@ -149,10 +149,9 @@ body {
 }
 
 #square-box {
-    width: 350px;
-    height: 350px;
-    background-color: #395AA6;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.7);
+    width: 500px;
+    height: 500px;
+    background-color: transparent;
     margin-bottom: 20px;
 }
 

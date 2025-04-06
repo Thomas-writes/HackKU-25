@@ -3,17 +3,18 @@
 <head>
   <title>Spot-A-Song</title>
   <link rel="stylesheet" href="outstyles.css">
-  <script type="module" src="outscript.js" defer></script>
 </head>
 <body>
 
   <div id="topBar">
-    <img src="/temp.jpg" alt="logo" id="logo">
+    <img src="../icon.png" alt="logo" id="logo">
     <h1 id="t">spot-a-song</h1>
   </div>
 
   <div id="button-container">
-    <div id="square-box"></div>
+    <div class="square-box">
+      <img class="square-box"src="" alt="playlist cover" id="playlist">
+    </div>
     <button id="generation">generate again</button>
     <button>send to spotify</button>
   </div>
@@ -21,8 +22,62 @@
     <h1 id="song-list-title">
       songs:
     </h1>
-    <ul class="song-list">
+    <ul class="song-list" id="main">
     </ul>
+    <script>
+      window.addEventListener('message', function(event) {
+        console.log("a")
+        const data = event.data;
+        
+        // Destructure the arrays from the data object
+        const { titleArray, artistArray, albumArray, spotifyURLArray, imageArray } = data;
+    
+        let playlist_cover = document.getElementById("playlist");
+        let mainList = document.getElementById('main');
+        
+
+        mainList.innerHTML = ''; 
+        
+    
+        function generate(aname, img, sname) {
+          let songElement = document.createElement('li');
+          let image = document.createElement('img');
+          let info = document.createElement('div');
+          let title = document.createElement('div');
+          let artist = document.createElement('div');
+    
+          songElement.className = "song-item";
+          image.className = "album-art"; image.src = img;
+          info.className = "song-info";
+          title.className = "song-title";
+          artist.className = "artist-name";
+          image.style.height = "100px";
+          image.style.width = "100px";
+          title.innerHTML = sname;
+          artist.innerHTML = aname;
+          title.style.color = "#143150";
+          title.style.paddingLeft = "10px";
+          title.style.fontSize = "20px";
+          artist.style.color = "#C2EFB3";
+          artist.style.paddingLeft = "15px";
+          
+          info.appendChild(title); 
+          info.appendChild(artist);
+          songElement.appendChild(image); 
+          songElement.appendChild(info);
+          mainList.appendChild(songElement);
+        }
+        
+        playlist_cover.src = imageArray[0];
+        
+    
+        // Generate list of songs
+        for (let i = 0; i < titleArray.length; i++) {
+          generate(artistArray[i], imageArray[i], titleArray[i]);
+        }
+      });
+    </script>
+    
   </div>
 </body>
 </html>
