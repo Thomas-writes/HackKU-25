@@ -1,7 +1,7 @@
-@keyframes animateBody
+@keyframes animateBar
 {
-
-
+    from {width: 9%}
+    to {width: 100%;}
 }
 
 body {
@@ -26,7 +26,9 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 }
 
-#logo {
+/*Top left logo*/
+#logo 
+{
     height: 50px;
     margin-right: 10px;
     margin-left: 10px;
@@ -35,13 +37,13 @@ body {
 #t {
     font-size: 2.5rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
-    -webkit-background-clip: text; /* For Chrome, Safari, and Edge */
-    background-clip: text; /* For Firefox */
-    color: transparent; /* Make the text color transparent to show the gradient */
+    -webkit-background-clip: text;
+    background-clip: text; 
+    color: transparent; 
     letter-spacing: 2px;
     margin: 0;
 }
-/* body part 1*/
+
 #loading_bar_background
 {
     display: flex;
@@ -52,60 +54,31 @@ body {
 
     position: absolute;
 
-    width: 713px;
-    height: 70px;
-    left: 24rem;
-    top: 20rem;
+    width: 710px;
+    min-width: 60px;
+    height: 60px;
+    top: 32rem;
 
     background: #4268BD;
     border-radius: 100px;
 }
 
+#cassette
+{
+    position: absolute;
+    top: 0rem;
+    width: 700px;
+    height: 700px;
+}
 
 #loading_bar
 {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
-    border-radius: 100px;
-}
-
-/*
-flex: none;
-order: 0;
-flex-grow: 0;*/
-
-/* body part 2*/
-#loading_bar_background2
-{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 5px;
-    gap: 10px;
-
-    position: absolute;
     width: 713px;
-    height: 70px;
-    left: 20px;
-    top: 134px;
-
-    background: #4268BD;
-    border-radius: 100px;
-}
-
-
-/* loading bar*/
-#loading_bar2
-{
-    width: 703px;
     height: 60px;
     background: linear-gradient(90deg, #E97EAB 0%, #EBC143 44.71%, #96D2FF 99.04%);
     border-radius: 100px;
+    animation-name: animateBar;
+    animation-duration: 2s;
+    animation-direction: normal;
+    animation-iteration-count: infinite;
 }
-
-/*
-flex: none;
-order: 0;
-flex-grow: 0;
-*/
