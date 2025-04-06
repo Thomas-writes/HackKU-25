@@ -110,7 +110,7 @@ createBtn.addEventListener("click", async () => {
 
   const playlist = await playlistRes.json();
 
-    const trackUris = spotifyURIArray;
+  const trackUris = spotifyURIArray;
 
   const addTracksRes = await fetch(
     `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
@@ -124,45 +124,41 @@ createBtn.addEventListener("click", async () => {
     }
   );
 
-//   if (!addTracksRes.ok) {
-//     const errorData = await addTracksRes.json();
-//     console.error("Error adding tracks:", errorData);
-//     alert("Failed to add tracks. Check console for details.");
-//     return;
-//   }
-
   // Upload custom playlist cover
   try {
     const imageRes = await fetch("./cover.jpg"); // Fetch the image file from the project directory
     const imageBlob = await imageRes.blob();
 
     const reader = new FileReader();
-    reader.onload = async () => {
-      const base64Image = reader.result.split(",")[1]; // Get base64 string without the prefix
-
-      const uploadRes = await fetch(
-        `https://api.spotify.com/v1/playlists/${playlist.id}/images`,
-        {
-          method: "PUT",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "image/jpeg",
-          },
-          body: base64Image,
-        }
-      );
-
-      if (!uploadRes.ok) {
-        const errorData = await uploadRes.json();
-        console.error("Error uploading playlist cover:", errorData);
-        alert("Failed to upload playlist cover. Check console for details.");
-        return;
-      }
-
-      alert(`Playlist created with custom cover: ${playlist.external_urls.spotify}`);
+    reader.onload = () => {
+      const base64Image = reader.result.split(",")[1];
+      console.log("Base64 Image:", base64Image);
     };
+    reader.onerror = (error) => {
+      console.error("Error reading image blob:", error);
+    };
+    reader.readAsDataURL(imageBlob);
 
-    reader.readAsDataURL(imageBlob); // Read the image blob as a base64 data URL
+    const uploadRes = await fetch(
+      `https://api.spotify.com/v1/playlists/${playlist.id}/images`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "image/jpeg",
+        },
+        body: base64Image,
+      }
+    );
+
+    if (!uploadRes.ok) {
+      const errorData = await uploadRes.json();
+      console.error("Error uploading playlist cover:", errorData);
+      alert("Failed to upload playlist cover. Check console for details.");
+      return;
+    }
+
+    alert(`Playlist created with custom cover: ${playlist.external_urls.spotify}`);
   } catch (error) {
     console.error("Error fetching or uploading the image:", error);
     alert("Failed to upload playlist cover. Check console for details.");
