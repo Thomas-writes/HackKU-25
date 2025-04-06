@@ -178,7 +178,7 @@ export function main() {
 
           clearInterval(interval);
         }
-      }, 100);
+      }, 500);
         }
 
   // Fetch access token and begin search
