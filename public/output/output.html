@@ -15,7 +15,7 @@
     <div class="square-box">
       <img class="square-box" src="" alt="playlist cover" id="playlist">
     </div>
-    <button onclick="clearUL()" id="generation">generate again</button>
+    <button onclick="regen()" id="generation">generate again</button>
     <button>send to spotify</button>
   </div>
   <div id="song-section">
@@ -25,9 +25,8 @@
     <ul class="song-list" id="main">
     </ul>
     <script>
-      function clearUL() {
-        let mainList = document.getElementById('main');
-        mainList.innerHTML = '';
+      function regen() {
+        window.close()
       }
       window.addEventListener('message', function(event) {
         console.log("Message received:", event.data);  // Log the received data
