@@ -4,7 +4,7 @@ const scopes = ["playlist-modify-public", "playlist-modify-private"];
 
 const loginBtn = document.getElementById("login");
 const createBtn = document.getElementById("create");
-
+import { spotifyURIArray } from "./script.js";
 // --- PKCE helpers ---
 function generateRandomString(length) {
   const charset =
@@ -70,11 +70,21 @@ createBtn.addEventListener("click", async () => {
   const token = localStorage.getItem("access_token");
   if (!token) return alert("Not logged in.");
 
+  // Fetch user data
   const userRes = await fetch("https://api.spotify.com/v1/me", {
     headers: { Authorization: `Bearer ${token}` },
   });
+
+  if (!userRes.ok) {
+    const errorData = await userRes.json();
+    console.error("Error fetching user data:", errorData);
+    alert("Failed to fetch user data. Check console for details.");
+    return;
+  }
+
   const user = await userRes.json();
 
+  // Create playlist
   const playlistRes = await fetch(
     `https://api.spotify.com/v1/users/${user.id}/playlists`,
     {
@@ -84,28 +94,77 @@ createBtn.addEventListener("click", async () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: "My Demo Playlist",
-        description: "Created with pure JS + Spotify Web API",
+        name: "spot-a-song mix",
+        description: "Vibes that match",
         public: false,
       }),
     }
   );
 
+  if (!playlistRes.ok) {
+    const errorData = await playlistRes.json();
+    console.error("Error creating playlist:", errorData);
+    alert("Failed to create playlist. Check console for details.");
+    return;
+  }
+
   const playlist = await playlistRes.json();
 
-  const trackUris = [
-    "spotify:track:4iV5W9uYEdYUVa79Axb7Rh",
-    "spotify:track:1301WleyT98MSxVHPZCA6M",
-  ];
+    const trackUris = spotifyURIArray;
 
-  await fetch(`https://api.spotify.com/v1/playlists/${playlist.id}/tracks`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ uris: trackUris }),
-  });
+  const addTracksRes = await fetch(
+    `https://api.spotify.com/v1/playlists/${playlist.id}/tracks`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ uris: trackUris }),
+    }
+  );
 
-  alert(` Playlist created: ${playlist.external_urls.spotify}`);
+//   if (!addTracksRes.ok) {
+//     const errorData = await addTracksRes.json();
+//     console.error("Error adding tracks:", errorData);
+//     alert("Failed to add tracks. Check console for details.");
+//     return;
+//   }
+
+  // Upload custom playlist cover
+  try {
+    const imageRes = await fetch("./cover.jpg"); // Fetch the image file from the project directory
+    const imageBlob = await imageRes.blob();
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+      const base64Image = reader.result.split(",")[1]; // Get base64 string without the prefix
+
+      const uploadRes = await fetch(
+        `https://api.spotify.com/v1/playlists/${playlist.id}/images`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "image/jpeg",
+          },
+          body: base64Image,
+        }
+      );
+
+      if (!uploadRes.ok) {
+        const errorData = await uploadRes.json();
+        console.error("Error uploading playlist cover:", errorData);
+        alert("Failed to upload playlist cover. Check console for details.");
+        return;
+      }
+
+      alert(`Playlist created with custom cover: ${playlist.external_urls.spotify}`);
+    };
+
+    reader.readAsDataURL(imageBlob); // Read the image blob as a base64 data URL
+  } catch (error) {
+    console.error("Error fetching or uploading the image:", error);
+    alert("Failed to upload playlist cover. Check console for details.");
+  }
 });

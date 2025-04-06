@@ -74,6 +74,7 @@ export let artistArray = [];
 export let albumArray = [];
 export let spotifyURLArray = [];
 export let imageArray = [];
+export let spotifyURIArray = [];
 
 export function main() {
   const clientSecret = "4168aaad5d40473192bd5fb745ca3c9a"; // Insert your client secret here
@@ -105,6 +106,7 @@ export function main() {
               albumArray.push(track.album.name);
               spotifyURLArray.push(track.external_urls.spotify);
               imageArray.push(track.album.images[0]?.url || "No image available");
+              spotifyURIArray.push(track.uri)
           } catch (error) {
               console.error("Error fetching song data:", error);
           }
@@ -115,7 +117,8 @@ export function main() {
           artistArray,
           albumArray,
           spotifyURLArray,
-          imageArray
+          imageArray,
+          spotifyURIArray
       };
 
       // Open the new window (it can be a new tab/window)
