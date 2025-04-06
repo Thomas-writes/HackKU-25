@@ -192,14 +192,13 @@ async function createPlaylist() {
         console.error("Image upload failed:", err);
         return alert("Cover upload failed.");
       }
-
+      //opens the playlist in spotify
       window.open(playlist.external_urls.spotify, "_blank");
     };
 
     reader.readAsDataURL(imageBlob);
   } catch (err) {
     console.warn("Cover image skipped:", err);
-    alert("Playlist created (without cover image). Opening in Spotify...");
     window.open(playlist.external_urls.spotify, "_blank");
   }
 }

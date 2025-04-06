@@ -5,7 +5,7 @@
     box-sizing: border-box;
 }
 body {
-    font-family: 'Commissioner', sans-serif;
+    font-family: 'Inter', sans-serif;
     margin: 0;
     background: #143150;
     color: white;
@@ -52,7 +52,7 @@ ul.song-list::-webkit-scrollbar {
 
 li.song-item {
     display: flex;
-    background: linear-gradient(90deg, #F0849E, #96D2FF);
+    background: linear-gradient(90deg, #F0849E, #EBC143, #96D2FF);
     padding: 15px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
@@ -87,6 +87,7 @@ li.song-item:hover {
 }
 
 #t {
+    font-style: ;
     font-size: 2.5rem;
     background: linear-gradient(90deg, #C2EFB3, #F0849E, #96D2FF);
     -webkit-background-clip: text;
