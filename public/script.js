@@ -8,6 +8,7 @@ const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" }
 //Gets song inside input box and sends to gemini
 async function getSong() 
 {
+  spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
   titleArray = [];
   artistArray = [];
   albumArray = [];
@@ -128,7 +129,7 @@ export function main() {
       };
 
       // Open the new window (it can be a new tab/window)
-      const newWindow = window.open('output/output.html', '_blank'); // Open in a new tab/window
+      const newWindow = window.open('/output/output.html', '_blank'); // Open in a new tab/window
 
       // Wait for the new window to be ready to receive data
       const interval = setInterval(() => {
@@ -136,9 +137,6 @@ export function main() {
               // Send the data to the new window
               newWindow.postMessage(songData, '*');
               clearInterval(interval); // Stop checking once the message is sent
-              
-              // Now close the original window (this window)
-               // This closes the original window
           }
       }, 100); // Check every 100ms
   }

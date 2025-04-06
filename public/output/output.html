@@ -7,7 +7,7 @@
 <body>
 
   <div id="topBar">
-    <img src="../icon.png" alt="logo" id="logo">
+    <img src="/icon.png" alt="logo" id="logo">
     <h1 id="t">spot-a-song</h1>
   </div>
 
@@ -16,68 +16,70 @@
       <img class="square-box" src="" alt="playlist cover" id="playlist">
     </div>
     <button onclick="regen()" id="generation">generate again</button>
-    <button>send to spotify</button>
+    <button id="create">send to spotify</button>
   </div>
+
   <div id="song-section">
-    <h1 id="song-list-title">
-      songs:
-    </h1>
-    <ul class="song-list" id="main">
-    </ul>
-    <script>
-      function regen() {
-        window.close()
+    <h1 id="song-list-title">songs:</h1>
+    <ul class="song-list" id="main"></ul>
+  </div>
+
+  <script>
+    function regen() {
+      window.close(); 
+    }
+
+    window.addEventListener('message', function(event) {
+      console.log("Message received:", event.data);
+      const { titleArray, artistArray, albumArray, spotifyURLArray, imageArray } = event.data;
+
+      const playlist_cover = document.getElementById("playlist");
+      const mainList = document.getElementById('main');
+      mainList.innerHTML = '';
+
+      function generate(aname, img, sname) {
+        const songElement = document.createElement('li');
+        const image = document.createElement('img');
+        const info = document.createElement('div');
+        const title = document.createElement('div');
+        const artist = document.createElement('div');
+
+        songElement.className = "song-item";
+        image.className = "album-art";
+        image.src = img;
+        image.style.height = "100px";
+        image.style.width = "100px";
+
+        info.className = "song-info";
+        title.className = "song-title";
+        artist.className = "artist-name";
+
+        title.innerHTML = sname;
+        artist.innerHTML = aname;
+
+        title.style.color = "#143150";
+        title.style.paddingLeft = "10px";
+        title.style.fontSize = "20px";
+        artist.style.color = "#C2EFB3";
+        artist.style.paddingLeft = "15px";
+
+        info.appendChild(title);
+        info.appendChild(artist);
+        songElement.appendChild(image);
+        songElement.appendChild(info);
+        mainList.appendChild(songElement);
       }
-      window.addEventListener('message', function(event) {
-        console.log("Message received:", event.data);  // Log the received data
-        const data = event.data;
-        
-        const { titleArray, artistArray, albumArray, spotifyURLArray, imageArray } = data;
-        
-        let playlist_cover = document.getElementById("playlist");
-        let mainList = document.getElementById('main');
-        
-        function generate(aname, img, sname) {
-          let songElement = document.createElement('li');
-          let image = document.createElement('img');
-          let info = document.createElement('div');
-          let title = document.createElement('div');
-          let artist = document.createElement('div');
-    
-          songElement.className = "song-item";
-          image.className = "album-art"; image.src = img;
-          info.className = "song-info";
-          title.className = "song-title";
-          artist.className = "artist-name";
-          image.style.height = "100px";
-          image.style.width = "100px";
-          title.innerHTML = sname;
-          artist.innerHTML = aname;
-          title.style.color = "#143150";
-          title.style.paddingLeft = "10px";
-          title.style.fontSize = "20px";
-          artist.style.color = "#C2EFB3";
-          artist.style.paddingLeft = "15px";
-          
-          info.appendChild(title); 
-          info.appendChild(artist);
-          songElement.appendChild(image); 
-          songElement.appendChild(info);
-          mainList.appendChild(songElement);
-        }
-        
-        playlist_cover.src = imageArray[0];
-        // Generate list of songs
-        for (let i = 0; i < titleArray.length; i++) {
-          generate(artistArray[i], imageArray[i], titleArray[i]);
-        }
-      });
-      let mainList = document.getElementById('main');
-      mainList.innerHTML = ''; 
+
+      playlist_cover.src = imageArray[0];
+
       for (let i = 0; i < titleArray.length; i++) {
         generate(artistArray[i], imageArray[i], titleArray[i]);
       }
-    </script>
-  </div>
+
+      localStorage.setItem("spotifyURIArray", JSON.stringify(spotifyURLArray));
+    });
+  </script>
+
+  <script type="module" src="/playlist.js" defer></script>
 </body>
 </html>
