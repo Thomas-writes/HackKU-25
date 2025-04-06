@@ -11,6 +11,42 @@ const scopes = [
 const spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
 console.log("Redirect URI being sent to Spotify:", redirectUri);
 
+async function getValidAccessToken() {
+  const token = localStorage.getItem("access_token");
+  const expiresAt = parseInt(localStorage.getItem("expires_at") || "0", 10);
+  const refreshToken = localStorage.getItem("refresh_token");
+
+  if (Date.now() < expiresAt && token) {
+    return token; // token is still valid
+  }
+
+  if (!refreshToken) {
+    console.error("No refresh token available.");
+    return null;
+  }
+
+  const res = await fetch("https://accounts.spotify.com/api/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token: refreshToken,
+      client_id: clientId,
+    }),
+  });
+
+  const data = await res.json();
+  if (!res.ok || data.error) {
+    console.error("Failed to refresh token:", data);
+    return null;
+  }
+
+  localStorage.setItem("access_token", data.access_token);
+  localStorage.setItem("expires_at", Date.now() + data.expires_in * 1000);
+  return data.access_token;
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("DOM fully loaded");
   const createBtn = document.getElementById("create");
@@ -76,12 +112,20 @@ async function handleRedirectAndCreate() {
   }
 
   localStorage.setItem("access_token", tokenData.access_token);
+if (tokenData.refresh_token) {
+  localStorage.setItem("refresh_token", tokenData.refresh_token);
+}
+localStorage.setItem("expires_at", Date.now() + tokenData.expires_in * 1000); // token expiration time
+
   createPlaylist();
 }
 
 // --- Main Logic ---
 async function createPlaylist() {
-  const token = localStorage.getItem("access_token");
+  const token = await getValidAccessToken();
+  if (!token) {
+    return alert("Couldn't get a valid Spotify access token.");
+  }
   console.log("Token being used:", token);
 
   if (!token) {
