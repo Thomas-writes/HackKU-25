@@ -5,55 +5,41 @@ import { GoogleGenAI } from 'https://cdn.jsdelivr.net/npm/@google/genai@latest/+
 const ai = new GoogleGenAI({ apiKey: "AIzaSyDnd-mN8-YCU0fQGQwEUAf8u5msU0vHxpA" });
 
 //Gets song inside input box and sends to gemini
-async function getSong() 
-{
+async function getSong(){
+const loadingWindow = window.open('/loading.html', '_blank'); // 🚀 Opens instantly!
+
+  // ⏳ Prepare everything else
   spotifyURIArray = JSON.parse(localStorage.getItem("spotifyURIArray") || "[]");
-  //Declare variables for future use.
   titleArray = [];
   artistArray = [];
   albumArray = [];
   spotifyURLArray = [];
   imageArray = [];
-  dict = {}
-  let response;
+  dict = {};
 
-  //obtain the song that the user enters and then clear the input box
+  let response;
   const song_name = document.getElementById("in").value;
   document.getElementById("in").value = "";
 
-  //checks if the user used advanced search or not.
   const adv_search = document.getElementById("adv_search");
-  if(adv_search.style.display == "none") 
-  {
-    //Doesn't use advanced search parameters if the display is none.
-    response = await ai.models.generateContent(
-    {
+  if (adv_search.style.display === "none") {
+    response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: "List 10 songs similar to " + song_name + " with no description. Please do not use any bold, italics, or mark ups and separate the song names from the artist by a -." +
-        " Please do not say anything else but the song names and artist. Please make sure that at least half the songs aren't mainstream"
+      contents: `List 10 songs similar to ${song_name} with no description. Separate song and artist with " - ".`,
     });
-  }
-  else
-  {
-    //Uses advanced search parameters if the display is not none.
+  } else {
     const num_songs = document.getElementById("NUM").value;
     const BPM = document.getElementById("BPM").value;
     const duration = document.getElementById("DUR").value;
-    response = await ai.models.generateContent(
-      {
-        model: "gemini-2.0-flash",
-
-        contents: "List " + num_songs +" song(s) similar to " + song_name + " that are within " + BPM*5 + " BPM and are around " + duration + 
-        " minutes long, with no description. Please do not use any bold, italics, or mark ups and separate the song names from the artist by a -." +
-        " Please do not say anything else but the song names and artist. Please make sure that at least half the songs aren't mainstream"
-      });
+    response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: `List ${num_songs} songs like ${song_name} around ${duration} minutes and within ${BPM * 5} BPM. No descriptions. Use " - ".`,
+    });
   }
-  //Create an array of the songs and artists obtained.
-  let list = response.text;
-  list = list.split("\n").slice(0,-1);
-  sendToSpotify(list);
-}
 
+  let list = response.text.trim().split("\n").filter(Boolean);
+  sendToSpotify(list, loadingWindow);
+}
 //This function is used to toggle the visibility of the advanced search options.
 function advSearch() 
 {
@@ -94,24 +80,18 @@ function advSearch()
   }
 }
 
-function sendToSpotify(list)
-{
-  console.log(list);
+function sendToSpotify(list, loadingWindow) {
   dict = {};
 
-  for (let line of list) {
-    const splitIndex = line.indexOf("-");
+  for (let entry of list) {
+    const splitIndex = entry.indexOf("-");
     if (splitIndex === -1) continue;
-    const song = line.slice(0, splitIndex).trim();
-    const artist = line.slice(splitIndex + 1).trim();
+    const song = entry.slice(0, splitIndex).trim();
+    const artist = entry.slice(splitIndex + 1).trim();
     dict[song] = artist;
   }
 
-  // 🔥 Open loading page immediately
-  const loadingWindow = window.open('/loading.html', '_blank');
-
-  // 🔥 Pass loading window to `main()`
-  main(loadingWindow);
+  main(loadingWindow); // Pass window
 }
 
 document.advSearch = advSearch;
